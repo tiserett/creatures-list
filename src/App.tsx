@@ -11,10 +11,10 @@ import {
 import { Header } from './components/Header';
 import { Home } from './pages/Home';
 import { People } from './pages/People';
-import { Person } from './types/Person';
+import { PersonType } from './types/PersonType';
 
 export const App = () => {
-  const [people, setPeople] = useState<Person[]>([]);
+  const [people, setPeople] = useState<PersonType[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,7 +45,7 @@ export const App = () => {
         <Route path="People">
           <Route
             index
-            element={<People people={people} />}
+            element={<People people={people} setPeople={setPeople} />}
           />
 
           <Route
