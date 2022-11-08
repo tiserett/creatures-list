@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/people-table/static/js/main.19f72dde.js",
+    "index.html": "/people-table/index.html",
+    "main.19f72dde.js.map": "/people-table/static/js/main.19f72dde.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.19f72dde.js"
+  ]
+}
