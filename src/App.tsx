@@ -1,4 +1,8 @@
-import React from 'react';
+import
+React, {
+  useEffect,
+  useState
+} from 'react';
 import {
   Routes,
   Route,
@@ -7,8 +11,27 @@ import {
 import { Header } from './components/Header';
 import { Home } from './pages/Home';
 import { People } from './pages/People';
+import { Person } from './types/Person';
 
 export const App = () => {
+  const [people, setPeople] = useState<Person[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetch('https://jsonplaceholder.typicode.com/users');
+
+      const peopleFromServer = await data.json();
+
+      setPeople(peopleFromServer);
+    };
+
+    try {
+      fetchData();
+    } catch {
+      setPeople([]);
+    }
+  }, []);
+
   return (
     <div className="App">
       <Header />
@@ -22,7 +45,7 @@ export const App = () => {
         <Route path="People">
           <Route
             index
-            element={<People />}
+            element={<People people={people} />}
           />
 
           <Route
