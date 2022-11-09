@@ -8,7 +8,7 @@ export const Home = () => (
       </p>
       <article className="
         subtitle
-        is-size-3
+        is-size-5
         has-text-black-bis
         has-text-weight-bold"
       >
