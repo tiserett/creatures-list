@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PersonType } from '../../types/PersonType';
 
@@ -22,8 +24,10 @@ export const Person: React.FC<Props> = ({
     address,
   } = person;
 
+  const [isEdited, setIsEdited] = useState(false);
+
   return (
-    <tr>
+    <tr className={classNames({ 'is-italic': isEdited })}>
       <th>{id}</th>
       <th>{name}</th>
       <th>{username}</th>
@@ -40,6 +44,7 @@ export const Person: React.FC<Props> = ({
           onClick={() => {
             setId(id);
             handleIsEditing(true);
+            setIsEdited(true);
           }}
         >
           Edit
