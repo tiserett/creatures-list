@@ -14,6 +14,11 @@ export const PersonPage: React.FC = () => {
     return null;
   }
 
+  const nextUser = people.find(person => person.id > id);
+  const prevUser = [...people]
+    .sort((p1, p2) => p2.id - p1.id)
+    .find(person => person.id < id);
+
   const {
     name,
     username,
@@ -26,7 +31,7 @@ export const PersonPage: React.FC = () => {
   return (
     <section className="hero is-small is-primary is-warning">
       <div className="hero-body">
-        <p className="title">
+        <section className="title">
           <div className="mb-6">
             <Link
               to="/People"
@@ -35,22 +40,22 @@ export const PersonPage: React.FC = () => {
               Back to people
             </Link>
             <Link
-              to={`/People/${id - 1}`}
+              to={`/People/${prevUser ? prevUser.id : id}`}
               className={classNames(
                 'button is-link is-outlined mr-3 is-size-5',
-                { 'disabled is-danger': id === 1 },
+                { 'disabled is-danger': prevUser ? !prevUser.id : true },
               )}
-              onClick={() => setId(id - 1)}
+              onClick={() => setId(prevUser ? prevUser.id : id)}
             >
               Previous
             </Link>
             <Link
-              to={`/People/${id + 1}`}
+              to={`/People/${nextUser ? nextUser.id : id}`}
               className={classNames(
                 'button is-link is-outlined mr-3 is-size-5',
-                { 'disabled is-danger': id === people.length },
+                { 'disabled is-danger': nextUser ? !nextUser.id : true },
               )}
-              onClick={() => setId(id + 1)}
+              onClick={() => setId(nextUser ? nextUser.id : id)}
             >
               Next
             </Link>
@@ -93,7 +98,7 @@ export const PersonPage: React.FC = () => {
               {company.catchPhrase}
             </p>
           </article>
-        </p>
+        </section>
       </div>
     </section>
   );
