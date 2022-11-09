@@ -1,9 +1,8 @@
-import React, { FormEvent } from 'react';
+import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { PersonType } from '../../types/PersonType';
 import { actions as peopleActions } from '../../features/people';
 import { ModalForm } from '../ModalForm';
-import { validateEmail } from '../../utils/validateEmail';
 
 type Props = {
   setIsAdding: (isAdding: boolean) => void;
@@ -39,24 +38,14 @@ export const AddModal: React.FC<Props> = ({ setIsAdding }) => {
     },
   };
 
-  const handleSumbit = (
-    event: FormEvent<HTMLFormElement>,
-    newPerson: PersonType,
-  ) => {
-    event.preventDefault();
-
-    if (!validateEmail(newPerson.email)) {
-      return;
-    }
-
+  const handlePeople = (newPerson: PersonType) => {
     dispatch(peopleActions.add([...people, newPerson]));
-    setIsAdding(false);
   };
 
   return (
     <ModalForm
       person={defaultPerson}
-      handleSubmit={handleSumbit}
+      handlePeople={handlePeople}
       handleClose={setIsAdding}
       title="Add new person"
     />

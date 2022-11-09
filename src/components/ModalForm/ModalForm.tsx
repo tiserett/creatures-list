@@ -6,14 +6,14 @@ import { validateEmail } from '../../utils/validateEmail';
 
 type Props = {
   person?: PersonType;
-  handleSubmit: (event: FormEvent<HTMLFormElement>, data: PersonType) => void;
+  handlePeople: (people: PersonType) => void;
   handleClose: (isOpened: boolean) => void;
   title: string;
 };
 
 export const ModalForm: React.FC<Props> = ({
   person,
-  handleSubmit,
+  handlePeople,
   handleClose,
   title,
 }) => {
@@ -27,7 +27,7 @@ export const ModalForm: React.FC<Props> = ({
   const [city, setCity] = useState(person.address.city || 'Odessa');
   const [street, setStreet] = useState(person.address.street || 'Primorska');
 
-  const newPerson: PersonType = {
+  const tempPerson: PersonType = {
     id: person.id,
     name,
     username,
@@ -48,6 +48,21 @@ export const ModalForm: React.FC<Props> = ({
     },
   };
 
+  const handleSumbit = (
+    event: FormEvent<HTMLFormElement>,
+    newPerson: PersonType,
+  ) => {
+    event.preventDefault();
+
+    if (!validateEmail(newPerson.email)) {
+      return;
+    }
+
+    handlePeople(newPerson);
+
+    handleClose(false);
+  };
+
   return (
     <div className="modal is-active">
       <div className="modal-background" />
@@ -65,7 +80,7 @@ export const ModalForm: React.FC<Props> = ({
         </header>
         <form
           action=""
-          onSubmit={event => handleSubmit(event, newPerson)}
+          onSubmit={event => handleSumbit(event, tempPerson)}
         >
           <section className="modal-card-body">
             <div className="field">

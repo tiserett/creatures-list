@@ -1,10 +1,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { FormEvent } from 'react';
+import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { PersonType } from '../../types/PersonType';
 import { actions as peopleActions } from '../../features/people';
 import { ModalForm } from '../ModalForm';
-import { validateEmail } from '../../utils/validateEmail';
 
 type Props = {
   setIsEditing: (isEditing: boolean) => void;
@@ -24,16 +23,7 @@ export const EditModal: React.FC<Props> = ({
     return null;
   }
 
-  const handleSumbit = (
-    event: FormEvent<HTMLFormElement>,
-    newPerson: PersonType,
-  ) => {
-    event.preventDefault();
-
-    if (!validateEmail(newPerson.email)) {
-      return;
-    }
-
+  const handlePeople = (newPerson: PersonType) => {
     dispatch(peopleActions.add(people.map(user => {
       if (user.id === person.id) {
         return newPerson;
@@ -41,13 +31,12 @@ export const EditModal: React.FC<Props> = ({
 
       return user;
     })));
-    setIsEditing(false);
   };
 
   return (
     <ModalForm
       person={person}
-      handleSubmit={handleSumbit}
+      handlePeople={handlePeople}
       handleClose={setIsEditing}
       title={`Edit: ${person.name}`}
     />
