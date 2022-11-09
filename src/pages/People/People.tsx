@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { AddModal } from '../../components/AddModal';
 import { DeleteModal } from '../../components/DeleteModal';
 import { Person } from '../../components/Person';
 import { PersonType } from '../../types/PersonType';
@@ -10,6 +11,7 @@ type Props = {
 
 export const People: React.FC<Props> = ({ people, setPeople }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isAdding, setIsAdding] = useState(false);
   const [id, setId] = useState(0);
 
   const handleDelete = (personId: number) => {
@@ -51,9 +53,17 @@ export const People: React.FC<Props> = ({ people, setPeople }) => {
         <button
           type="submit"
           className="button is-success is-outlined title is-5"
+          onClick={() => setIsAdding(true)}
         >
           Add new person
         </button>
+        {isAdding && (
+          <AddModal
+            people={people}
+            setPeople={setPeople}
+            setIsAdding={setIsAdding}
+          />
+        )}
       </div>
 
       {isOpen && (
