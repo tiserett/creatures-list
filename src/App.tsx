@@ -1,16 +1,17 @@
 import
 React, {
   useEffect,
-  useState
+  useState,
 } from 'react';
 import {
   Routes,
   Route,
-  Navigate
+  Navigate,
 } from 'react-router-dom';
 import { Header } from './components/Header';
 import { Home } from './pages/Home';
 import { People } from './pages/People';
+import { PersonPage } from './pages/PersonPage';
 import { PersonType } from './types/PersonType';
 
 export const App = () => {
@@ -50,7 +51,7 @@ export const App = () => {
 
           <Route
             path=":personId"
-            element={<h2>Person info</h2>}
+            element={<PersonPage people={people} />}
           />
         </Route>
 
@@ -59,5 +60,5 @@ export const App = () => {
         <Route path="*" element={<h1>Page not found</h1>} />
       </Routes>
     </div>
-  )
-}
+  );
+};

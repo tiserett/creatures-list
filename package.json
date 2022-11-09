@@ -52,7 +52,7 @@
     "@types/react-router-dom": "^5.3.3",
     "@typescript-eslint/eslint-plugin": "^5.42.1",
     "eslint": "^8.27.0",
-    "eslint-config-standard-with-typescript": "^23.0.0",
+    "@mate-academy/eslint-config-react-typescript": "^1.0.11",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-n": "^15.5.0",
     "eslint-plugin-promise": "^6.1.1",

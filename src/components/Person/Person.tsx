@@ -1,18 +1,25 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { PersonType } from '../../types/PersonType';
 
-interface Props {
-  person: PersonType
-  handleIsOpen: (isOpen: boolean) => void
-  setId: (id: number) => void
+type Props = {
+  person: PersonType;
+  handleIsOpen: (isOpen: boolean) => void;
+  setId: (id: number) => void;
 };
 
 export const Person: React.FC<Props> = ({
   person,
   handleIsOpen,
-  setId
+  setId,
 }) => {
-  const { id, name, username, email, address } = person;
+  const {
+    id,
+    name,
+    username,
+    email,
+    address,
+  } = person;
 
   return (
     <tr>
@@ -23,14 +30,21 @@ export const Person: React.FC<Props> = ({
       <th>{address.city}</th>
       <th>{address.street}</th>
       <th>
-        <button className="button is-info is-outlined mr-3">
+        <Link to={`/People/${id}`} className="button is-link is-outlined mr-3">
+          Open
+        </Link>
+        <button
+          type="submit"
+          className="button is-info is-outlined mr-3"
+        >
           Edit
         </button>
         <button
+          type="submit"
           className="button is-danger is-outlined"
           onClick={() => {
-            setId(id)
-            handleIsOpen(true)
+            setId(id);
+            handleIsOpen(true);
           }}
         >
           Delete
@@ -38,4 +52,4 @@ export const Person: React.FC<Props> = ({
       </th>
     </tr>
   );
-}
+};

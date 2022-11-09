@@ -3,18 +3,18 @@ import { DeleteModal } from '../../components/DeleteModal';
 import { Person } from '../../components/Person';
 import { PersonType } from '../../types/PersonType';
 
-interface Props {
-  people: PersonType[]
-  setPeople: (value: PersonType[]) => void
-}
+type Props = {
+  people: PersonType[];
+  setPeople: (value: PersonType[]) => void;
+};
 
 export const People: React.FC<Props> = ({ people, setPeople }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [id, setId] = useState(0);
 
-  const handleDelete = (id: number) => {
-    setPeople(people.filter(person => person.id !== id));
-  }
+  const handleDelete = (personId: number) => {
+    setPeople(people.filter(person => person.id !== personId));
+  };
 
   return (
     <section className="hero">
@@ -23,7 +23,9 @@ export const People: React.FC<Props> = ({ people, setPeople }) => {
           People list
         </p>
 
-        <table className="table is-hoverable is-bordered is-striped is-fullwidth">
+        <table
+          className="table is-hoverable is-bordered is-striped is-fullwidth"
+        >
           <thead>
             <th>Id</th>
             <th>Name</th>
@@ -46,7 +48,10 @@ export const People: React.FC<Props> = ({ people, setPeople }) => {
           </tbody>
         </table>
 
-        <button className="button is-success is-outlined title is-5">
+        <button
+          type="submit"
+          className="button is-success is-outlined title is-5"
+        >
           Add new person
         </button>
       </div>
