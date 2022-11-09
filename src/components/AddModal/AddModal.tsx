@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { PersonType } from '../../types/PersonType';
 import { actions as peopleActions } from '../../features/people';
 import { ModalForm } from '../ModalForm';
+import { validateEmail } from '../../utils/validateEmail';
 
 type Props = {
   setIsAdding: (isAdding: boolean) => void;
@@ -43,6 +44,10 @@ export const AddModal: React.FC<Props> = ({ setIsAdding }) => {
     newPerson: PersonType,
   ) => {
     event.preventDefault();
+
+    if (!validateEmail(newPerson.email)) {
+      return;
+    }
 
     dispatch(peopleActions.add([...people, newPerson]));
     setIsAdding(false);

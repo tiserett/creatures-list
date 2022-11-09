@@ -2,6 +2,7 @@
 import classNames from 'classnames';
 import { FormEvent, useState } from 'react';
 import { PersonType } from '../../types/PersonType';
+import { validateEmail } from '../../utils/validateEmail';
 
 type Props = {
   person?: PersonType;
@@ -46,8 +47,6 @@ export const ModalForm: React.FC<Props> = ({
       bs: person.company.catchPhrase,
     },
   };
-
-  const emailPattern = /^[\w.+-]+@([\w-]+\.){1,3}[\w-]{2,}$/;
 
   return (
     <div className="modal is-active">
@@ -136,7 +135,7 @@ export const ModalForm: React.FC<Props> = ({
                   <input
                     className={classNames(
                       'input',
-                      { 'is-success': email },
+                      { 'is-success': validateEmail(email) },
                     )}
                     type="email"
                     placeholder="yourname@gmail.com"
@@ -152,7 +151,7 @@ export const ModalForm: React.FC<Props> = ({
                   />
                 </div>
               </label>
-              {!emailPattern.test(email) && (
+              {!validateEmail(email) && (
                 <p className="help is-danger">This email is invalid</p>
               )}
             </div>

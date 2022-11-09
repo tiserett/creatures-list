@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { PersonType } from '../../types/PersonType';
 import { actions as peopleActions } from '../../features/people';
 import { ModalForm } from '../ModalForm';
+import { validateEmail } from '../../utils/validateEmail';
 
 type Props = {
   setIsEditing: (isEditing: boolean) => void;
@@ -28,6 +29,10 @@ export const EditModal: React.FC<Props> = ({
     newPerson: PersonType,
   ) => {
     event.preventDefault();
+
+    if (!validateEmail(newPerson.email)) {
+      return;
+    }
 
     dispatch(peopleActions.add(people.map(user => {
       if (user.id === person.id) {
