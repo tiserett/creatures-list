@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAppSelector } from '../../app/hooks';
 import { AddModal } from '../../components/AddModal';
 import { DeleteModal } from '../../components/DeleteModal';
+import { EditModal } from '../../components/EditModal';
 import { Person } from '../../components/Person';
 import { PersonType } from '../../types/PersonType';
 
@@ -10,6 +11,7 @@ export const People: React.FC = () => {
   const [query, setQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const [id, setId] = useState(0);
 
   const visiblePeople = people.filter(
@@ -71,12 +73,17 @@ export const People: React.FC = () => {
                 key={person.id}
                 person={person}
                 handleIsOpen={setIsOpen}
+                handleIsEditing={setIsEditing}
                 setId={setId}
               />
             ))}
           </tbody>
         </table>
       </div>
+
+      {isEditing && (
+        <EditModal setIsEditing={setIsEditing} id={id} />
+      )}
 
       {isOpen && (
         <DeleteModal

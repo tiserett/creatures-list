@@ -5,12 +5,14 @@ import { PersonType } from '../../types/PersonType';
 type Props = {
   person: PersonType;
   handleIsOpen: (isOpen: boolean) => void;
+  handleIsEditing: (isEditing: boolean) => void;
   setId: (id: number) => void;
 };
 
 export const Person: React.FC<Props> = ({
   person,
   handleIsOpen,
+  handleIsEditing,
   setId,
 }) => {
   const {
@@ -36,9 +38,14 @@ export const Person: React.FC<Props> = ({
         <button
           type="submit"
           className="button is-info is-outlined mr-3"
+          onClick={() => {
+            setId(id);
+            handleIsEditing(true);
+          }}
         >
           Edit
         </button>
+
         <button
           type="submit"
           className="button is-danger is-outlined"
