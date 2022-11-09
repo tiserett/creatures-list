@@ -14,7 +14,7 @@ export const AddModal: React.FC<Props> = ({ setIsAdding }) => {
 
   const maxId = [...people].sort((p1, p2) => p2.id - p1.id)[0].id;
 
-  const newPerson: PersonType = {
+  const defaultPerson: PersonType = {
     id: maxId + 1,
     name: 'John',
     username: 'Doe',
@@ -31,7 +31,10 @@ export const AddModal: React.FC<Props> = ({ setIsAdding }) => {
     },
   };
 
-  const handleSumbit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSumbit = (
+    event: FormEvent<HTMLFormElement>,
+    newPerson: PersonType,
+  ) => {
     event.preventDefault();
 
     dispatch(peopleActions.add([...people, newPerson]));
@@ -40,7 +43,7 @@ export const AddModal: React.FC<Props> = ({ setIsAdding }) => {
 
   return (
     <ModalForm
-      person={newPerson}
+      person={defaultPerson}
       handleSubmit={handleSumbit}
       handleClose={setIsAdding}
       title="Add new person"
