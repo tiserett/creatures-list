@@ -29,7 +29,10 @@ export const DeleteModal: React.FC<Props> = ({
 
   return (
     <div className="modal is-active">
-      <div className="modal-background" />
+      <div
+        className="modal-background"
+        onClick={() => handleIsDeleting(false)}
+      />
       <div className="modal-card">
         <header className="modal-card-head">
           <p className="modal-card-title">Delete this user?</p>

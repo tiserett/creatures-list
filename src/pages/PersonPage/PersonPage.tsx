@@ -1,17 +1,19 @@
 import classNames from 'classnames';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import { useAppSelector } from '../../app/hooks';
 import { PersonType } from '../../types/PersonType';
 import './PersonPage.scss';
 
 export const PersonPage: React.FC = () => {
   const people: PersonType[] = useAppSelector(state => state.people);
-  const [id, setId] = useState(+window.location.href.split('/People/')[1]);
+  const { personId } = useParams();
+
+  const id = Number(personId);
+
   const user = people.find(person => person.id === id);
 
-  if (user === undefined) {
-    return null;
+  if (user === undefined || !id) {
+    return <Navigate to="/Home" replace />;
   }
 
   const nextUser = people.find(person => person.id > id);
@@ -45,7 +47,6 @@ export const PersonPage: React.FC = () => {
                 'button is-link is-outlined mr-3 is-size-5',
                 { 'disabled is-danger': prevUser ? !prevUser.id : true },
               )}
-              onClick={() => setId(prevUser ? prevUser.id : id)}
             >
               Previous
             </Link>
@@ -55,7 +56,6 @@ export const PersonPage: React.FC = () => {
                 'button is-link is-outlined mr-3 is-size-5',
                 { 'disabled is-danger': nextUser ? !nextUser.id : true },
               )}
-              onClick={() => setId(nextUser ? nextUser.id : id)}
             >
               Next
             </Link>
