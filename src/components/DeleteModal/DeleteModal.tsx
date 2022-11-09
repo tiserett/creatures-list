@@ -5,12 +5,12 @@ import { actions as peopleActions } from '../../features/people';
 
 type Props = {
   id: number;
-  handleIsOpen: (isOpen: boolean) => void;
+  handleIsDeleting: (isOpen: boolean) => void;
 };
 
 export const DeleteModal: React.FC<Props> = ({
   id,
-  handleIsOpen,
+  handleIsDeleting,
 }) => {
   const dispatch = useAppDispatch();
   const people: PersonType[] = useAppSelector(state => state.people);
@@ -38,7 +38,7 @@ export const DeleteModal: React.FC<Props> = ({
             type="submit"
             className="delete is-outlined"
             aria-label="close"
-            onClick={() => handleIsOpen(false)}
+            onClick={() => handleIsDeleting(false)}
           />
         </header>
         <section className="modal-card-body">
@@ -61,7 +61,7 @@ export const DeleteModal: React.FC<Props> = ({
             className="button is-danger is-outlined"
             onClick={() => {
               handleDelete(id);
-              handleIsOpen(false);
+              handleIsDeleting(false);
             }}
           >
             Delete
@@ -69,7 +69,7 @@ export const DeleteModal: React.FC<Props> = ({
           <button
             type="submit"
             className="button is-info is-outlined"
-            onClick={() => handleIsOpen(false)}
+            onClick={() => handleIsDeleting(false)}
           >
             Cancel
           </button>

@@ -9,7 +9,7 @@ import { PersonType } from '../../types/PersonType';
 export const People: React.FC = () => {
   const people: PersonType[] = useAppSelector(state => state.people);
   const [query, setQuery] = useState('');
-  const [isOpen, setIsOpen] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [id, setId] = useState(0);
@@ -72,7 +72,7 @@ export const People: React.FC = () => {
               <Person
                 key={person.id}
                 person={person}
-                handleIsOpen={setIsOpen}
+                handleIsDeleting={setIsDeleting}
                 handleIsEditing={setIsEditing}
                 setId={setId}
               />
@@ -85,10 +85,10 @@ export const People: React.FC = () => {
         <EditModal setIsEditing={setIsEditing} id={id} />
       )}
 
-      {isOpen && (
+      {isDeleting && (
         <DeleteModal
           id={id}
-          handleIsOpen={setIsOpen}
+          handleIsDeleting={setIsDeleting}
         />
       )}
     </section>

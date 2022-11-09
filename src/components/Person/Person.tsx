@@ -4,14 +4,14 @@ import { PersonType } from '../../types/PersonType';
 
 type Props = {
   person: PersonType;
-  handleIsOpen: (isOpen: boolean) => void;
+  handleIsDeleting: (isOpen: boolean) => void;
   handleIsEditing: (isEditing: boolean) => void;
   setId: (id: number) => void;
 };
 
 export const Person: React.FC<Props> = ({
   person,
-  handleIsOpen,
+  handleIsDeleting,
   handleIsEditing,
   setId,
 }) => {
@@ -51,7 +51,7 @@ export const Person: React.FC<Props> = ({
           className="button is-danger is-outlined"
           onClick={() => {
             setId(id);
-            handleIsOpen(true);
+            handleIsDeleting(true);
           }}
         >
           Delete
