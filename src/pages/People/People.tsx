@@ -7,9 +7,22 @@ import { PersonType } from '../../types/PersonType';
 
 export const People: React.FC = () => {
   const people: PersonType[] = useAppSelector(state => state.people);
+  const [query, setQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   const [id, setId] = useState(0);
+
+  const visiblePeople = people.filter(
+    person => person.username.includes(query),
+  );
+
+  const handleQuery = (value: string) => {
+    if (value === ' ') {
+      return;
+    }
+
+    setQuery(value);
+  };
 
   return (
     <section className="hero">
@@ -17,6 +30,27 @@ export const People: React.FC = () => {
         <p className="title">
           People list
         </p>
+
+        <button
+          type="submit"
+          className="button is-success is-outlined title is-5"
+          onClick={() => setIsAdding(true)}
+        >
+          Add new person
+        </button>
+        {isAdding && (
+          <AddModal
+            setIsAdding={setIsAdding}
+          />
+        )}
+
+        <input
+          className="input mb-5"
+          type="text"
+          placeholder="Enter username"
+          value={query}
+          onChange={(event) => handleQuery(event.target.value)}
+        />
 
         <table
           className="table is-hoverable is-bordered is-striped is-fullwidth"
@@ -32,7 +66,7 @@ export const People: React.FC = () => {
           </thead>
 
           <tbody>
-            {people.map(person => (
+            {visiblePeople.map(person => (
               <Person
                 key={person.id}
                 person={person}
@@ -42,19 +76,6 @@ export const People: React.FC = () => {
             ))}
           </tbody>
         </table>
-
-        <button
-          type="submit"
-          className="button is-success is-outlined title is-5"
-          onClick={() => setIsAdding(true)}
-        >
-          Add new person
-        </button>
-        {isAdding && (
-          <AddModal
-            setIsAdding={setIsAdding}
-          />
-        )}
       </div>
 
       {isOpen && (
