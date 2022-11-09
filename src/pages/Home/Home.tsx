@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const Home = () => (
   <section className="hero is-medium is-primary">
     <div className="hero-body">

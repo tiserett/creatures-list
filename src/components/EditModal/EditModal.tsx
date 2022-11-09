@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { PersonType } from '../../types/PersonType';
 import { actions as peopleActions } from '../../features/people';

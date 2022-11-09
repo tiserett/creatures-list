@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useAppSelector } from '../../app/hooks';
 import { AddModal } from '../../components/AddModal';
 import { DeleteModal } from '../../components/DeleteModal';
