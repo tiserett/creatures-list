@@ -23,11 +23,11 @@ export const Person: React.FC<Props> = ({
       <th>{address.city}</th>
       <th>{address.street}</th>
       <th>
-        <button className="button is-info mr-3">
+        <button className="button is-info is-outlined mr-3">
           Edit
         </button>
         <button
-          className="button is-danger"
+          className="button is-danger is-outlined"
           onClick={() => {
             setId(id)
             handleIsOpen(true)

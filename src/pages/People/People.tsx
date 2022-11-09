@@ -46,7 +46,7 @@ export const People: React.FC<Props> = ({ people, setPeople }) => {
           </tbody>
         </table>
 
-        <button className="button is-success title is-5">
+        <button className="button is-success is-outlined title is-5">
           Add new person
         </button>
       </div>

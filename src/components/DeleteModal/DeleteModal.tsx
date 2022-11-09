@@ -30,7 +30,7 @@ export const DeleteModal: React.FC<Props> = ({
         <header className="modal-card-head">
           <p className="modal-card-title">Delete this user?</p>
           <button
-            className="delete"
+            className="delete is-outlined"
             aria-label="close"
             onClick={() => handleIsOpen(false)}
           ></button>
@@ -44,13 +44,13 @@ export const DeleteModal: React.FC<Props> = ({
         </section>
         <footer className="modal-card-foot">
           <button
-            className="button is-danger"
+            className="button is-danger is-outlined"
             onClick={() => handleDelete(person.id)}
           >
             Delete
           </button>
           <button
-            className="button"
+            className="button is-info is-outlined"
             onClick={() => handleIsOpen(false)}
           >
             Cancel
