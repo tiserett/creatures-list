@@ -1,19 +1,19 @@
 import React from 'react';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { PersonType } from '../../types/PersonType';
+import { actions as peopleActions } from '../../features/people';
 
 type Props = {
-  people: PersonType[];
   id: number;
-  handleDelete: (id: number) => void;
   handleIsOpen: (isOpen: boolean) => void;
 };
 
 export const DeleteModal: React.FC<Props> = ({
-  people,
   id,
-  handleDelete,
   handleIsOpen,
 }) => {
+  const dispatch = useAppDispatch();
+  const people: PersonType[] = useAppSelector(state => state.people);
   const user = people.find(person => person.id === id);
 
   if (user === undefined) {
@@ -21,6 +21,12 @@ export const DeleteModal: React.FC<Props> = ({
   }
 
   const { name, email } = user;
+
+  const handleDelete = (personId: number) => {
+    dispatch(peopleActions.add(people.filter(
+      person => person.id !== personId,
+    )));
+  };
 
   return (
     <div className="modal is-active">

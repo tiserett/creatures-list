@@ -1,7 +1,6 @@
 import
 React, {
   useEffect,
-  useState,
 } from 'react';
 import {
   Routes,
@@ -12,10 +11,11 @@ import { Header } from './components/Header';
 import { Home } from './pages/Home';
 import { People } from './pages/People';
 import { PersonPage } from './pages/PersonPage';
-import { PersonType } from './types/PersonType';
+import { useAppDispatch } from './app/hooks';
+import { actions as peopleActions } from './features/people';
 
 export const App = () => {
-  const [people, setPeople] = useState<PersonType[]>([]);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,13 +23,13 @@ export const App = () => {
 
       const peopleFromServer = await data.json();
 
-      setPeople(peopleFromServer);
+      dispatch(peopleActions.add(peopleFromServer));
     };
 
     try {
       fetchData();
     } catch {
-      setPeople([]);
+      dispatch(peopleActions.add([]));
     }
   }, []);
 
@@ -46,12 +46,12 @@ export const App = () => {
         <Route path="People">
           <Route
             index
-            element={<People people={people} setPeople={setPeople} />}
+            element={<People />}
           />
 
           <Route
             path=":personId"
-            element={<PersonPage people={people} />}
+            element={<PersonPage />}
           />
         </Route>
 

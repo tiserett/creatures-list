@@ -1,14 +1,12 @@
 import classNames from 'classnames';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../app/hooks';
 import { PersonType } from '../../types/PersonType';
 import './PersonPage.scss';
 
-type Props = {
-  people: PersonType[];
-};
-
-export const PersonPage: React.FC<Props> = ({ people }) => {
+export const PersonPage: React.FC = () => {
+  const people: PersonType[] = useAppSelector(state => state.people);
   const [id, setId] = useState(+window.location.href.split('/People/')[1]);
   const user = people.find(person => person.id === id);
 
@@ -85,6 +83,5 @@ export const PersonPage: React.FC<Props> = ({ people }) => {
         </p>
       </div>
     </section>
-
   );
 };

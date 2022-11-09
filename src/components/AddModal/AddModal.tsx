@@ -1,17 +1,17 @@
 import React, { FormEvent, useState } from 'react';
+import classNames from 'classnames';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { PersonType } from '../../types/PersonType';
+import { actions as peopleActions } from '../../features/people';
 
 type Props = {
-  people: PersonType[];
-  setPeople: (value: PersonType[]) => void;
   setIsAdding: (isAdding: boolean) => void;
 };
 
-export const AddModal: React.FC<Props> = ({
-  people,
-  setPeople,
-  setIsAdding,
-}) => {
+export const AddModal: React.FC<Props> = ({ setIsAdding }) => {
+  const dispatch = useAppDispatch();
+  const people: PersonType[] = useAppSelector(state => state.people);
+
   const [name, setName] = useState('John');
   const [username, setUsername] = useState('Doe');
   const [email, setEmail] = useState('johndoe@gmail.com');
@@ -40,7 +40,7 @@ export const AddModal: React.FC<Props> = ({
       },
     };
 
-    setPeople([...people, newPerson]);
+    dispatch(peopleActions.add([...people, newPerson]));
     setIsAdding(false);
   };
 
@@ -68,7 +68,10 @@ export const AddModal: React.FC<Props> = ({
 
                 <div className="control">
                   <input
-                    className="input"
+                    className={classNames(
+                      'input',
+                      { 'is-success': name },
+                    )}
                     type="text"
                     placeholder="Name"
                     value={name}
@@ -77,6 +80,10 @@ export const AddModal: React.FC<Props> = ({
                   />
                 </div>
               </label>
+
+              {!name && (
+                <p className="help is-danger">Please provide name</p>
+              )}
             </div>
 
             <div className="field">
@@ -85,7 +92,10 @@ export const AddModal: React.FC<Props> = ({
 
                 <div className="control">
                   <input
-                    className="input"
+                    className={classNames(
+                      'input',
+                      { 'is-success': username },
+                    )}
                     type="text"
                     placeholder="Username"
                     value={username}
@@ -94,7 +104,9 @@ export const AddModal: React.FC<Props> = ({
                   />
                 </div>
               </label>
-              {/* <p className="help is-success">This username is available</p> */}
+              {!username && (
+                <p className="help is-danger">Please provide username</p>
+              )}
             </div>
 
             <div className="field">
@@ -103,7 +115,10 @@ export const AddModal: React.FC<Props> = ({
 
                 <div className="control">
                   <input
-                    className="input"
+                    className={classNames(
+                      'input',
+                      { 'is-success': email },
+                    )}
                     type="email"
                     placeholder="yourname@gmail.com"
                     value={email}
@@ -112,7 +127,9 @@ export const AddModal: React.FC<Props> = ({
                   />
                 </div>
               </label>
-              {/* <p className="help is-danger">This email is invalid</p> */}
+              {!email && (
+                <p className="help is-danger">This email is invalid</p>
+              )}
             </div>
 
             <div className="field">
@@ -121,7 +138,10 @@ export const AddModal: React.FC<Props> = ({
 
                 <div className="control">
                   <input
-                    className="input"
+                    className={classNames(
+                      'input',
+                      { 'is-success': city },
+                    )}
                     type="city"
                     placeholder="City"
                     value={city}
@@ -130,7 +150,9 @@ export const AddModal: React.FC<Props> = ({
                   />
                 </div>
               </label>
-              {/* <p className="help is-danger">Please enter city name</p> */}
+              {!city && (
+                <p className="help is-danger">Please provide city name</p>
+              )}
             </div>
 
             <div className="field">
@@ -139,7 +161,10 @@ export const AddModal: React.FC<Props> = ({
 
                 <div className="control">
                   <input
-                    className="input"
+                    className={classNames(
+                      'input',
+                      { 'is-success': street },
+                    )}
                     type="street"
                     placeholder="Street"
                     value={street}
@@ -148,7 +173,9 @@ export const AddModal: React.FC<Props> = ({
                   />
                 </div>
               </label>
-              {/* <p className="help is-danger">Please enter street name</p> */}
+              {!street && (
+                <p className="help is-danger">Please provide street name</p>
+              )}
             </div>
           </section>
 

@@ -1,22 +1,15 @@
 import React, { useState } from 'react';
+import { useAppSelector } from '../../app/hooks';
 import { AddModal } from '../../components/AddModal';
 import { DeleteModal } from '../../components/DeleteModal';
 import { Person } from '../../components/Person';
 import { PersonType } from '../../types/PersonType';
 
-type Props = {
-  people: PersonType[];
-  setPeople: (value: PersonType[]) => void;
-};
-
-export const People: React.FC<Props> = ({ people, setPeople }) => {
+export const People: React.FC = () => {
+  const people: PersonType[] = useAppSelector(state => state.people);
   const [isOpen, setIsOpen] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   const [id, setId] = useState(0);
-
-  const handleDelete = (personId: number) => {
-    setPeople(people.filter(person => person.id !== personId));
-  };
 
   return (
     <section className="hero">
@@ -59,8 +52,6 @@ export const People: React.FC<Props> = ({ people, setPeople }) => {
         </button>
         {isAdding && (
           <AddModal
-            people={people}
-            setPeople={setPeople}
             setIsAdding={setIsAdding}
           />
         )}
@@ -68,10 +59,8 @@ export const People: React.FC<Props> = ({ people, setPeople }) => {
 
       {isOpen && (
         <DeleteModal
-          people={people}
           id={id}
           handleIsOpen={setIsOpen}
-          handleDelete={handleDelete}
         />
       )}
     </section>

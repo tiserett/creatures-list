@@ -1,14 +1,18 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom/client';
 import { HashRouter as Router } from 'react-router-dom';
 import { App } from './App';
+import { store } from './app/store';
 import './styles/index.scss';
 import 'bulma/css/bulma.min.css';
 
 const Root = () => (
-  <Router>
-    <App />
-  </Router>
+  <Provider store={store}>
+    <Router>
+      <App />
+    </Router>
+  </Provider>
 );
 
 const root = ReactDOM.createRoot(
