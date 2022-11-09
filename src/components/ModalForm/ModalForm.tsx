@@ -47,6 +47,8 @@ export const ModalForm: React.FC<Props> = ({
     },
   };
 
+  const emailPattern = /^[\w.+-]+@([\w-]+\.){1,3}[\w-]{2,}$/;
+
   return (
     <div className="modal is-active">
       <div className="modal-background" />
@@ -80,7 +82,13 @@ export const ModalForm: React.FC<Props> = ({
                     type="text"
                     placeholder="Name"
                     value={name}
-                    onChange={(event) => setName(event.target.value)}
+                    onChange={(event) => {
+                      if (event.target.value === ' ') {
+                        return;
+                      }
+
+                      setName(event.target.value);
+                    }}
                     required
                   />
                 </div>
@@ -104,7 +112,13 @@ export const ModalForm: React.FC<Props> = ({
                     type="text"
                     placeholder="Username"
                     value={username}
-                    onChange={(event) => setUsername(event.target.value)}
+                    onChange={(event) => {
+                      if (event.target.value === ' ') {
+                        return;
+                      }
+
+                      setUsername(event.target.value);
+                    }}
                     required
                   />
                 </div>
@@ -127,12 +141,18 @@ export const ModalForm: React.FC<Props> = ({
                     type="email"
                     placeholder="yourname@gmail.com"
                     value={email}
-                    onChange={(event) => setEmail(event.target.value)}
+                    onChange={(event) => {
+                      if (event.target.value === ' ') {
+                        return;
+                      }
+
+                      setEmail(event.target.value);
+                    }}
                     required
                   />
                 </div>
               </label>
-              {!email && (
+              {!emailPattern.test(email) && (
                 <p className="help is-danger">This email is invalid</p>
               )}
             </div>
@@ -150,7 +170,13 @@ export const ModalForm: React.FC<Props> = ({
                     type="city"
                     placeholder="City"
                     value={city}
-                    onChange={(event) => setCity(event.target.value)}
+                    onChange={(event) => {
+                      if (event.target.value === ' ') {
+                        return;
+                      }
+
+                      setCity(event.target.value);
+                    }}
                     required
                   />
                 </div>
@@ -173,7 +199,13 @@ export const ModalForm: React.FC<Props> = ({
                     type="street"
                     placeholder="Street"
                     value={street}
-                    onChange={(event) => setStreet(event.target.value)}
+                    onChange={(event) => {
+                      if (event.target.value === ' ') {
+                        return;
+                      }
+
+                      setStreet(event.target.value);
+                    }}
                     required
                   />
                 </div>
