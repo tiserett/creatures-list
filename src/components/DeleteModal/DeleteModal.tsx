@@ -59,7 +59,10 @@ export const DeleteModal: React.FC<Props> = ({
           <button
             type="submit"
             className="button is-danger is-outlined"
-            onClick={() => handleDelete(id)}
+            onClick={() => {
+              handleDelete(id);
+              handleIsOpen(false);
+            }}
           >
             Delete
           </button>

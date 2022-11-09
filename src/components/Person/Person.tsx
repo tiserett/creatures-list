@@ -33,7 +33,7 @@ export const Person: React.FC<Props> = ({
       <th>{address.street}</th>
       <th>
         <Link to={`/People/${id}`} className="button is-link is-outlined mr-3">
-          Open
+          Select
         </Link>
         <button
           type="submit"

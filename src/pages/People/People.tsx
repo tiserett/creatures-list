@@ -15,7 +15,7 @@ export const People: React.FC = () => {
   const [id, setId] = useState(0);
 
   const visiblePeople = people.filter(
-    person => person.username.includes(query),
+    person => person.username.toLowerCase().includes(query.toLowerCase()),
   );
 
   const handleQuery = (value: string) => {
@@ -55,7 +55,7 @@ export const People: React.FC = () => {
         />
 
         <table
-          className="table is-hoverable is-bordered is-striped is-fullwidth"
+          className="table is-hoverable is-bordered is-fullwidth"
         >
           <thead>
             <th>Id</th>

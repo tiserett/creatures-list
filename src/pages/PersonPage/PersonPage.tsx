@@ -19,6 +19,8 @@ export const PersonPage: React.FC = () => {
     username,
     email,
     address,
+    phone,
+    company,
   } = user;
 
   return (
@@ -78,6 +80,17 @@ export const PersonPage: React.FC = () => {
             <p>
               Street:
               {address.street}
+            </p>
+            <p>
+              Phone:
+              {phone}
+            </p>
+            <p>
+              Company:
+              {company.name}
+              <br />
+              Cath phrase:
+              {company.catchPhrase}
             </p>
           </article>
         </p>

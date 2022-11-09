@@ -29,6 +29,13 @@ export const AddModal: React.FC<Props> = ({ setIsAdding }) => {
         lan: '81.1496',
       },
     },
+    phone: '1-770-736-8031 x56442',
+    website: 'github.com/tiserett',
+    company: {
+      name: 'Romaguera-Crona',
+      catchPhrase: 'Multi-layered client-server neural-net',
+      bs: 'harness real-time e-markets',
+    },
   };
 
   const handleSumbit = (

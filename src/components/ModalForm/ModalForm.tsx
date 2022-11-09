@@ -38,6 +38,13 @@ export const ModalForm: React.FC<Props> = ({
       zipcode: person.address.zipcode,
       geo: person.address.geo,
     },
+    phone: person.phone,
+    website: person.website,
+    company: {
+      name: person.company.name,
+      catchPhrase: person.company.catchPhrase,
+      bs: person.company.catchPhrase,
+    },
   };
 
   return (

@@ -30,7 +30,7 @@ export const Home = () => (
           id, name, username, email, city and street.
           <br />
           In the end of each row you can see:
-          open, edit and delete buttons.
+          select, edit and delete buttons.
           <br />
           This project is deployed via github pages.
           Styles were written using bulma.
