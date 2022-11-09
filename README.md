@@ -15,7 +15,7 @@ Implemented using:
 <hr />
 
 Might not be the best looking page, but I only had a test task, so I tried to do my best😃\
-Took me less than a day to finish it
+Took me a day to finish it
 
 Data fetched from [Link](https://jsonplaceholder.typicode.com/users)\
 You can always contact me via [Linkedin](https://www.linkedin.com/in/maksym-sobko-253a8824a/)
