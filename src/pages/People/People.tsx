@@ -28,7 +28,7 @@ export const People: React.FC = () => {
 
   return (
     <section className="hero">
-      <div className="hero-body">
+      <div className="hero-body p-5">
         <p className="title">
           People list
         </p>
