@@ -1,10 +1,15 @@
 import { useState } from 'react';
+import {
+  CSSTransition,
+  TransitionGroup,
+} from 'react-transition-group';
 import { useAppSelector } from '../../app/hooks';
 import { AddModal } from '../../components/AddModal';
 import { DeleteModal } from '../../components/DeleteModal';
 import { EditModal } from '../../components/EditModal';
 import { Person } from '../../components/Person';
 import { PersonType } from '../../types/PersonType';
+import '../../styles/transition.scss';
 
 export const People: React.FC = () => {
   const people: PersonType[] = useAppSelector(state => state.people);
@@ -67,30 +72,38 @@ export const People: React.FC = () => {
             <th>Operations</th>
           </thead>
 
-          <tbody>
+          <TransitionGroup component="tbody">
             {visiblePeople.map(person => (
-              <Person
+              <CSSTransition
                 key={person.id}
-                person={person}
-                handleIsDeleting={setIsDeleting}
-                handleIsEditing={setIsEditing}
-                setId={setId}
-              />
+                timeout={1000}
+                classNames="item"
+              >
+                <Person
+                  person={person}
+                  handleIsDeleting={setIsDeleting}
+                  handleIsEditing={setIsEditing}
+                  setId={setId}
+                />
+              </CSSTransition>
             ))}
-          </tbody>
+          </TransitionGroup>
         </table>
       </div>
 
-      {isEditing && (
-        <EditModal setIsEditing={setIsEditing} id={id} />
-      )}
-
-      {isDeleting && (
-        <DeleteModal
-          id={id}
-          handleIsDeleting={setIsDeleting}
-        />
-      )}
+      {
+        isEditing && (
+          <EditModal setIsEditing={setIsEditing} id={id} />
+        )
+      }
+      {
+        isDeleting && (
+          <DeleteModal
+            id={id}
+            handleIsDeleting={setIsDeleting}
+          />
+        )
+      }
     </section>
   );
 };
