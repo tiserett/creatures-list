@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import React from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { useAppSelector } from '../../app/hooks';
 import { PersonType } from '../../types/PersonType';
@@ -21,17 +22,10 @@ export const PersonPage: React.FC = () => {
     .sort((p1, p2) => p2.id - p1.id)
     .find(person => person.id < id);
 
-  const {
-    name,
-    username,
-    email,
-    address,
-    phone,
-    company,
-  } = user;
+  const { name, username, email, address, phone, company } = user;
 
   return (
-    <section className="hero is-small is-primary is-warning">
+    <section className="fullHeight hero is-small is-primary is-warning">
       <div className="hero-body">
         <section className="title">
           <div className="mb-6">
@@ -45,7 +39,7 @@ export const PersonPage: React.FC = () => {
               to={`/People/${prevUser ? prevUser.id : id}`}
               className={classNames(
                 'button is-link is-outlined mr-3 is-size-5',
-                { 'disabled is-danger': prevUser ? !prevUser.id : true },
+                { 'disabled is-danger': prevUser ? !prevUser.id : true }
               )}
             >
               Previous
@@ -54,50 +48,50 @@ export const PersonPage: React.FC = () => {
               to={`/People/${nextUser ? nextUser.id : id}`}
               className={classNames(
                 'button is-link is-outlined mr-3 is-size-5',
-                { 'disabled is-danger': nextUser ? !nextUser.id : true },
+                { 'disabled is-danger': nextUser ? !nextUser.id : true }
               )}
             >
               Next
             </Link>
           </div>
 
-          <article>
-            <p>
+          <ul className="personInfo">
+            <li>
               Id:
               {id}
-            </p>
-            <p>
+            </li>
+            <li>
               Name:
               {name}
-            </p>
-            <p>
+            </li>
+            <li>
               Username:
               {username}
-            </p>
-            <p>
+            </li>
+            <li>
               Email:
               {email}
-            </p>
-            <p>
+            </li>
+            <li>
               City:
               {address.city}
-            </p>
-            <p>
+            </li>
+            <li>
               Street:
               {address.street}
-            </p>
-            <p>
+            </li>
+            <li>
               Phone:
               {phone}
-            </p>
-            <p>
+            </li>
+            <li>
               Company:
               {company.name}
               <br />
               Cath phrase:
               {company.catchPhrase}
-            </p>
-          </article>
+            </li>
+          </ul>
         </section>
       </div>
     </section>

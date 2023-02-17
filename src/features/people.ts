@@ -16,7 +16,7 @@ export const actions = { add };
 
 const peopleReducer = (
   people: PersonType[] = [],
-  action: Action,
+  action: Action
 ): PersonType[] => {
   switch (action.type) {
     case 'people/ADD':

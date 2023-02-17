@@ -1,15 +1,12 @@
-import { useState } from 'react';
-import {
-  CSSTransition,
-  TransitionGroup,
-} from 'react-transition-group';
+import React, { useState } from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { useAppSelector } from '../../app/hooks';
 import { AddModal } from '../../components/AddModal';
 import { DeleteModal } from '../../components/DeleteModal';
 import { EditModal } from '../../components/EditModal';
 import { Person } from '../../components/Person';
-import { PersonType } from '../../types/PersonType';
 import '../../styles/transition.scss';
+import { PersonType } from '../../types/PersonType';
 
 export const People: React.FC = () => {
   const people: PersonType[] = useAppSelector(state => state.people);
@@ -19,8 +16,8 @@ export const People: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [id, setId] = useState(0);
 
-  const visiblePeople = people.filter(
-    person => person.username.toLowerCase().includes(query.toLowerCase()),
+  const visiblePeople = people.filter(person =>
+    person.username.toLowerCase().includes(query.toLowerCase())
   );
 
   const handleQuery = (value: string) => {
@@ -34,9 +31,7 @@ export const People: React.FC = () => {
   return (
     <section className="hero">
       <div className="hero-body p-5">
-        <p className="title">
-          People list
-        </p>
+        <p className="title">People list</p>
 
         <button
           type="submit"
@@ -45,23 +40,17 @@ export const People: React.FC = () => {
         >
           Add new person
         </button>
-        {isAdding && (
-          <AddModal
-            setIsAdding={setIsAdding}
-          />
-        )}
+        {isAdding && <AddModal setIsAdding={setIsAdding} />}
 
         <input
           className="input mb-5"
           type="text"
           placeholder="Enter username"
           value={query}
-          onChange={(event) => handleQuery(event.target.value)}
+          onChange={event => handleQuery(event.target.value)}
         />
 
-        <table
-          className="table is-hoverable is-bordered is-fullwidth"
-        >
+        <table className="table is-hoverable is-bordered is-fullwidth">
           <thead>
             <th>Id</th>
             <th>Name</th>
@@ -74,11 +63,7 @@ export const People: React.FC = () => {
 
           <TransitionGroup component="tbody">
             {visiblePeople.map(person => (
-              <CSSTransition
-                key={person.id}
-                timeout={1000}
-                classNames="item"
-              >
+              <CSSTransition key={person.id} timeout={1000} classNames="item">
                 <Person
                   person={person}
                   handleIsDeleting={setIsDeleting}
@@ -91,19 +76,8 @@ export const People: React.FC = () => {
         </table>
       </div>
 
-      {
-        isEditing && (
-          <EditModal setIsEditing={setIsEditing} id={id} />
-        )
-      }
-      {
-        isDeleting && (
-          <DeleteModal
-            id={id}
-            handleIsDeleting={setIsDeleting}
-          />
-        )
-      }
+      {isEditing && <EditModal setIsEditing={setIsEditing} id={id} />}
+      {isDeleting && <DeleteModal id={id} handleIsDeleting={setIsDeleting} />}
     </section>
   );
 };

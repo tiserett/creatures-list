@@ -1,7 +1,7 @@
-/* eslint-disable react-hooks/rules-of-hooks */
+import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { PersonType } from '../../types/PersonType';
 import { actions as peopleActions } from '../../features/people';
+import { PersonType } from '../../types/PersonType';
 import { ModalForm } from '../ModalForm';
 
 type Props = {
@@ -9,10 +9,7 @@ type Props = {
   id: number;
 };
 
-export const EditModal: React.FC<Props> = ({
-  setIsEditing,
-  id,
-}) => {
+export const EditModal: React.FC<Props> = ({ setIsEditing, id }) => {
   const dispatch = useAppDispatch();
   const people: PersonType[] = useAppSelector(state => state.people);
 
@@ -23,13 +20,17 @@ export const EditModal: React.FC<Props> = ({
   }
 
   const handlePeople = (newPerson: PersonType) => {
-    dispatch(peopleActions.add(people.map(user => {
-      if (user.id === person.id) {
-        return newPerson;
-      }
+    dispatch(
+      peopleActions.add(
+        people.map(user => {
+          if (user.id === person.id) {
+            return newPerson;
+          }
 
-      return user;
-    })));
+          return user;
+        })
+      )
+    );
   };
 
   return (

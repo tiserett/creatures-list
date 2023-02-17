@@ -1,10 +1,11 @@
-import { Provider } from 'react-redux';
+import 'bulma/css/bulma.min.css';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 import { HashRouter as Router } from 'react-router-dom';
 import { App } from './App';
 import { store } from './app/store';
 import './styles/index.scss';
-import 'bulma/css/bulma.min.css';
 
 const Root = () => (
   <Provider store={store}>
@@ -15,7 +16,7 @@ const Root = () => (
 );
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement,
+  document.getElementById('root') as HTMLElement
 );
 
 root.render(<Root />);

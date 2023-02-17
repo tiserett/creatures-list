@@ -19,5 +19,5 @@ export interface PersonType {
     name: string;
     catchPhrase: string;
     bs: string;
-  }
-};
+  };
+}

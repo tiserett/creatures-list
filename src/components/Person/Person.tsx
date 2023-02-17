@@ -1,66 +1,60 @@
 import classNames from 'classnames';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PersonType } from '../../types/PersonType';
 
 type Props = {
-  person: PersonType;
-  handleIsDeleting: (isOpen: boolean) => void;
-  handleIsEditing: (isEditing: boolean) => void;
-  setId: (id: number) => void;
+	person: PersonType;
+	handleIsDeleting: (isOpen: boolean) => void;
+	handleIsEditing: (isEditing: boolean) => void;
+	setId: (id: number) => void;
 };
 
 export const Person: React.FC<Props> = ({
-  person,
-  handleIsDeleting,
-  handleIsEditing,
-  setId,
+	person,
+	handleIsDeleting,
+	handleIsEditing,
+	setId,
 }) => {
-  const {
-    id,
-    name,
-    username,
-    email,
-    address,
-  } = person;
+	const { id, name, username, email, address } = person;
 
-  const [isEdited, setIsEdited] = useState(false);
+	const [isEdited, setIsEdited] = useState(false);
 
-  return (
-    <tr className={classNames({ 'is-italic': isEdited })}>
-      <th>{id}</th>
-      <th>{name}</th>
-      <th>{username}</th>
-      <th>{email}</th>
-      <th>{address.city}</th>
-      <th>{address.street}</th>
-      <th>
-        <Link to={`/People/${id}`} className="button is-link is-outlined mr-3">
-          Select
-        </Link>
-        <button
-          type="submit"
-          className="button is-info is-outlined mr-3"
-          onClick={() => {
-            setId(id);
-            handleIsEditing(true);
-            setIsEdited(true);
-          }}
-        >
-          Edit
-        </button>
+	return (
+		<tr className={classNames({ 'is-italic': isEdited })}>
+			<th>{id}</th>
+			<th>{name}</th>
+			<th>{username}</th>
+			<th>{email}</th>
+			<th>{address.city}</th>
+			<th>{address.street}</th>
+			<th>
+				<Link to={`/People/${id}`} className="button is-link is-outlined mr-3">
+					Select
+				</Link>
+				<button
+					type="submit"
+					className="button is-info is-outlined mr-3"
+					onClick={() => {
+						setId(id);
+						handleIsEditing(true);
+						setIsEdited(true);
+					}}
+				>
+					Edit
+				</button>
 
-        <button
-          type="submit"
-          className="button is-danger is-outlined"
-          onClick={() => {
-            setId(id);
-            handleIsDeleting(true);
-          }}
-        >
-          Delete
-        </button>
-      </th>
-    </tr>
-  );
+				<button
+					type="submit"
+					className="button is-danger is-outlined"
+					onClick={() => {
+						setId(id);
+						handleIsDeleting(true);
+					}}
+				>
+					Delete
+				</button>
+			</th>
+		</tr>
+	);
 };

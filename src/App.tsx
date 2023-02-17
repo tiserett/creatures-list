@@ -1,15 +1,11 @@
-import { useEffect } from 'react';
-import {
-  Routes,
-  Route,
-  Navigate,
-} from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { useAppDispatch } from './app/hooks';
 import { Header } from './components/Header';
+import { actions as peopleActions } from './features/people';
 import { Home } from './pages/Home';
 import { People } from './pages/People';
 import { PersonPage } from './pages/PersonPage';
-import { useAppDispatch } from './app/hooks';
-import { actions as peopleActions } from './features/people';
 
 export const App = () => {
   const dispatch = useAppDispatch();
@@ -35,21 +31,12 @@ export const App = () => {
       <Header />
 
       <Routes>
-        <Route
-          path="Home"
-          element={<Home />}
-        />
+        <Route path="Home" element={<Home />} />
 
         <Route path="People">
-          <Route
-            index
-            element={<People />}
-          />
+          <Route index element={<People />} />
 
-          <Route
-            path=":personId"
-            element={<PersonPage />}
-          />
+          <Route path=":personId" element={<PersonPage />} />
         </Route>
 
         <Route path="/" element={<Navigate to="Home" replace />} />

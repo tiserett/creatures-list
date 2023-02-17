@@ -1,16 +1,14 @@
+import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { PersonType } from '../../types/PersonType';
 import { actions as peopleActions } from '../../features/people';
+import { PersonType } from '../../types/PersonType';
 
 type Props = {
   id: number;
   handleIsDeleting: (isOpen: boolean) => void;
 };
 
-export const DeleteModal: React.FC<Props> = ({
-  id,
-  handleIsDeleting,
-}) => {
+export const DeleteModal: React.FC<Props> = ({ id, handleIsDeleting }) => {
   const dispatch = useAppDispatch();
   const people: PersonType[] = useAppSelector(state => state.people);
   const user = people.find(person => person.id === id);
@@ -22,9 +20,9 @@ export const DeleteModal: React.FC<Props> = ({
   const { name, email } = user;
 
   const handleDelete = (personId: number) => {
-    dispatch(peopleActions.add(people.filter(
-      person => person.id !== personId,
-    )));
+    dispatch(
+      peopleActions.add(people.filter(person => person.id !== personId))
+    );
   };
 
   return (
