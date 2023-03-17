@@ -20,21 +20,38 @@ export const ModalForm: React.FC<Props> = ({
 		return null;
 	}
 
-	const [name, setName] = useState(person.name || 'John');
-	const [username, setUsername] = useState(person.username || 'Doe');
-	const [email, setEmail] = useState(person.email || 'johndoe@gmail.com');
-	const [city, setCity] = useState(person.address.city || 'Odessa');
-	const [street, setStreet] = useState(person.address.street || 'Primorska');
+	const [user, setUser] = useState<PersonType>(person);
+
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const value = e.target.value
+		const name = e.target.name;
+
+		if (value === ' ') {
+			return;
+		}
+
+		setUser(prev => {
+			let person: PersonType = { ...prev };
+
+			if (name === 'city' || name === 'street') {
+				person.address[name] = value;
+			} else {
+				person = { ...prev, [name]: value };
+			}
+
+			return person;
+		});
+	};
 
 	const tempPerson: PersonType = {
 		id: person.id,
-		name,
-		username,
-		email,
+		name: user.name,
+		username: user.username,
+		email: user.email,
 		address: {
-			street,
+			street: user.address.street,
 			suite: person.address.suite,
-			city,
+			city: user.address.city,
 			zipcode: person.address.zipcode,
 			geo: person.address.geo,
 		},
@@ -58,7 +75,6 @@ export const ModalForm: React.FC<Props> = ({
 		}
 
 		handlePeople(newPerson);
-
 		handleClose(false);
 	};
 
@@ -82,23 +98,18 @@ export const ModalForm: React.FC<Props> = ({
 								Name
 								<div className="control">
 									<input
-										className={classNames('input', { 'is-success': name })}
+										className={classNames('input', { 'is-success': user.name }, { 'is-danger': !user.name })}
 										type="text"
 										placeholder="Name"
-										value={name}
-										onChange={event => {
-											if (event.target.value === ' ') {
-												return;
-											}
-
-											setName(event.target.value);
-										}}
+										name="name"
+										value={user.name}
+										onChange={handleChange}
 										required
 									/>
 								</div>
 							</label>
 
-							{!name && <p className="help is-danger">Please provide name</p>}
+							{!user.name && <p className="help is-danger">Please provide name</p>}
 						</div>
 
 						<div className="field">
@@ -106,22 +117,17 @@ export const ModalForm: React.FC<Props> = ({
 								Username
 								<div className="control">
 									<input
-										className={classNames('input', { 'is-success': username })}
+										className={classNames('input', { 'is-success': user.username }, { 'is-danger': !user.username })}
 										type="text"
 										placeholder="Username"
-										value={username}
-										onChange={event => {
-											if (event.target.value === ' ') {
-												return;
-											}
-
-											setUsername(event.target.value);
-										}}
+										name="username"
+										value={user.username}
+										onChange={handleChange}
 										required
 									/>
 								</div>
 							</label>
-							{!username && (
+							{!user.username && (
 								<p className="help is-danger">Please provide username</p>
 							)}
 						</div>
@@ -131,24 +137,20 @@ export const ModalForm: React.FC<Props> = ({
 								Email
 								<div className="control">
 									<input
-										className={classNames('input', {
-											'is-success': validateEmail(email),
-										})}
+										className={classNames('input',
+											{ 'is-success': validateEmail(user.email) },
+											{ 'is-danger': !validateEmail(user.email) }
+										)}
 										type="email"
 										placeholder="yourname@gmail.com"
-										value={email}
-										onChange={event => {
-											if (event.target.value === ' ') {
-												return;
-											}
-
-											setEmail(event.target.value);
-										}}
+										name="email"
+										value={user.email}
+										onChange={handleChange}
 										required
 									/>
 								</div>
 							</label>
-							{!validateEmail(email) && (
+							{!validateEmail(user.email) && (
 								<p className="help is-danger">This email is invalid</p>
 							)}
 						</div>
@@ -158,23 +160,21 @@ export const ModalForm: React.FC<Props> = ({
 								City
 								<div className="control">
 									<input
-										className={classNames('input', { 'is-success': city })}
+										className={classNames('input',
+											{ 'is-success': user.address.city },
+											{ 'is-danger': !user.address.city }
+										)}
 										type="city"
 										placeholder="City"
-										value={city}
-										onChange={event => {
-											if (event.target.value === ' ') {
-												return;
-											}
-
-											setCity(event.target.value);
-										}}
+										name="city"
+										value={user.address.city}
+										onChange={handleChange}
 										required
 									/>
 								</div>
 							</label>
-							{!city && (
-								<p className="help is-danger">Please provide city name</p>
+							{!user.address.city && (
+								<p className="help is-danger">Please provide city</p>
 							)}
 						</div>
 
@@ -183,23 +183,21 @@ export const ModalForm: React.FC<Props> = ({
 								Street
 								<div className="control">
 									<input
-										className={classNames('input', { 'is-success': street })}
+										className={classNames('input',
+											{ 'is-success': user.address.street },
+											{ 'is-danger': !user.address.street }
+										)}
 										type="street"
 										placeholder="Street"
-										value={street}
-										onChange={event => {
-											if (event.target.value === ' ') {
-												return;
-											}
-
-											setStreet(event.target.value);
-										}}
+										name="street"
+										value={user.address.street}
+										onChange={handleChange}
 										required
 									/>
 								</div>
 							</label>
-							{!street && (
-								<p className="help is-danger">Please provide street name</p>
+							{!user.address.street && (
+								<p className="help is-danger">Please provide street</p>
 							)}
 						</div>
 					</section>

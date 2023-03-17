@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { useAppSelector } from '../../app/hooks';
 import { AddModal } from '../../components/AddModal';
@@ -16,15 +16,17 @@ export const People: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [id, setId] = useState(0);
 
-  const visiblePeople = people.filter(person =>
-    person.username.toLowerCase().includes(query.toLowerCase())
-  );
+  const visiblePeople = useMemo(() => {
+		return people.filter(person =>
+			person.username.toLowerCase().includes(query.toLowerCase())
+		);
+	}, [query, people]);
 
   const handleQuery = (value: string) => {
     if (value === ' ') {
       return;
     }
-
+		
     setQuery(value);
   };
 

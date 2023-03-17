@@ -1,9 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 .App {
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 20px;
+	font-family: 'Roboto', sans-serif;
+  font-size: 18px;
   font-weight: bold;
 }
 
 .fullHeight {
 	height: calc(100vh - 52px);
+}
+
+.field {
+	height: 90px;
+}
+
+.field:not(:last-child) {
+	margin-bottom: 0;
 }
