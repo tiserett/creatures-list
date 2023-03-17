@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { useAppDispatch } from './app/hooks';
 import { Header } from './components/Header';
+import { NotFoundPage } from './components/NotFoundPage';
 import { actions as peopleActions } from './features/people';
 import { Home } from './pages/Home';
 import { People } from './pages/People';
@@ -41,7 +42,7 @@ export const App = () => {
 
         <Route path="/" element={<Navigate to="Home" replace />} />
 
-        <Route path="*" element={<h1>Page not found</h1>} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
   );
