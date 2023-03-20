@@ -4,7 +4,7 @@
 
 <hr />
 
-Site with Star Wars related data.\
+Website with Star Wars related data.\
 Implemented using:
   - React
   - Redux
