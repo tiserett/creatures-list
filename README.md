@@ -4,7 +4,7 @@
 
 <hr />
 
-Admin panel with people data.\
+Site with Star Wars related data.\
 Implemented using:
   - React
   - Redux
