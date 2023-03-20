@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PersonType } from '../../types/PersonType';
+import '../../styles/person.scss'
 
 type Props = {
 	person: PersonType;
@@ -21,14 +22,15 @@ export const Person: React.FC<Props> = ({
 	const [isEdited, setIsEdited] = useState(false);
 
 	return (
-		<tr className={classNames({ 'is-italic': isEdited })}>
-			<th>{id}</th>
-			<th>{name}</th>
-			<th>{username}</th>
-			<th>{email}</th>
-			<th>{address.city}</th>
-			<th>{address.street}</th>
-			<th>
+		<div className={classNames('person', { 'is-italic': isEdited })}>
+			<span className="person__id">{id}</span>
+			<span className="person__infoWrapper">{name}</span>
+			<span className="person__infoWrapper">{username}</span>
+			<span className="person__infoWrapper">{email}</span>
+			<span className="person__infoWrapper">{address.city}</span>
+			<span className="person__infoWrapper">{address.street}</span>
+
+			<div className="person__buttons">
 				<Link to={`/People/${id}`} className="button is-link is-outlined mr-3">
 					Select
 				</Link>
@@ -54,7 +56,7 @@ export const Person: React.FC<Props> = ({
 				>
 					Delete
 				</button>
-			</th>
-		</tr>
+			</div>
+		</div>
 	);
 };

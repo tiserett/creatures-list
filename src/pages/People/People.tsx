@@ -6,80 +6,69 @@ import { DeleteModal } from '../../components/DeleteModal';
 import { EditModal } from '../../components/EditModal';
 import { Person } from '../../components/Person';
 import '../../styles/transition.scss';
+import '../../styles/person.scss';
 import { PersonType } from '../../types/PersonType';
 
 export const People: React.FC = () => {
-  const people: PersonType[] = useAppSelector(state => state.people);
-  const [query, setQuery] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [isAdding, setIsAdding] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [id, setId] = useState(0);
+	const people: PersonType[] = useAppSelector(state => state.people);
+	const [query, setQuery] = useState('');
+	const [isDeleting, setIsDeleting] = useState(false);
+	const [isAdding, setIsAdding] = useState(false);
+	const [isEditing, setIsEditing] = useState(false);
+	const [id, setId] = useState(0);
 
-  const visiblePeople = useMemo(() => {
+	const visiblePeople = useMemo(() => {
 		return people.filter(person =>
 			person.username.toLowerCase().includes(query.toLowerCase())
 		);
 	}, [query, people]);
 
-  const handleQuery = (value: string) => {
-    if (value === ' ') {
-      return;
-    }
-		
-    setQuery(value);
-  };
+	const handleQuery = (value: string) => {
+		if (value === ' ') {
+			return;
+		}
 
-  return (
-    <section className="hero">
-      <div className="hero-body p-5">
-        <p className="title">People list</p>
+		setQuery(value);
+	};
 
-        <button
-          type="submit"
-          className="button is-success is-outlined title is-5"
-          onClick={() => setIsAdding(true)}
-        >
-          Add new person
-        </button>
-        {isAdding && <AddModal setIsAdding={setIsAdding} />}
+	return (
+		<section className="hero">
+			<div className="hero-body p-5">
+				<p className="title">People list</p>
 
-        <input
-          className="input mb-5"
-          type="text"
-          placeholder="Enter username"
-          value={query}
-          onChange={event => handleQuery(event.target.value)}
-        />
+				<button
+					type="submit"
+					className="button is-success is-outlined title is-5"
+					onClick={() => setIsAdding(true)}
+				>
+					Add new person
+				</button>
 
-        <table className="table is-hoverable is-bordered is-fullwidth">
-          <thead>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th>City</th>
-            <th>Street</th>
-            <th>Operations</th>
-          </thead>
+				<input
+					className="input mb-5"
+					type="text"
+					placeholder="Enter username"
+					value={query}
+					onChange={event => handleQuery(event.target.value)}
+				/>
 
-          <TransitionGroup component="tbody">
-            {visiblePeople.map(person => (
-              <CSSTransition key={person.id} timeout={1000} classNames="item">
-                <Person
-                  person={person}
-                  handleIsDeleting={setIsDeleting}
-                  handleIsEditing={setIsEditing}
-                  setId={setId}
-                />
-              </CSSTransition>
-            ))}
-          </TransitionGroup>
-        </table>
-      </div>
+				<TransitionGroup component="div" className="people__wrapper">
+					{visiblePeople.map(person => (
+						<CSSTransition key={person.id} timeout={1000} classNames="item">
+							<Person
+								person={person}
+								handleIsDeleting={setIsDeleting}
+								handleIsEditing={setIsEditing}
+								setId={setId}
+							/>
+						</CSSTransition>
+					))}
+				</TransitionGroup>
+			</div>
 
-      {isEditing && <EditModal setIsEditing={setIsEditing} id={id} />}
-      {isDeleting && <DeleteModal id={id} handleIsDeleting={setIsDeleting} />}
-    </section>
-  );
+			{isAdding && <AddModal setIsAdding={setIsAdding} />}
+			{isEditing && <EditModal setIsEditing={setIsEditing} id={id} />}
+			{isDeleting && <DeleteModal id={id} handleIsDeleting={setIsDeleting} />}
+		</section>
+	);
 };
