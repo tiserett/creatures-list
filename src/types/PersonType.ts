@@ -4,4 +4,5 @@ export interface PersonType {
   height: number;
   mass: number;
 	gender: string;
+	homeworld?: string;
 }

@@ -1,20 +1,43 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { useAppSelector } from '../../app/hooks';
 import { PersonType } from '../../types/PersonType';
+import { Planet } from '../../types/Planet';
+import { addCommas } from '../../utils/addComas';
 import './PersonPage.scss';
 
 export const PersonPage: React.FC = () => {
+	const [planet, setPlanet] = useState<Planet>({
+		name: '',
+		terrain: '',
+		climate: '',
+		population: 0
+	});
 	const people: PersonType[] = useAppSelector(state => state.people);
 	const { creatureId } = useParams();
 
 	const id = Number(creatureId);
-
 	const user = people.find(person => person.id === id);
 
-	if (user === undefined || !id) {
-		return <Navigate to="/Home" replace />;
+	useEffect(() => {
+		const fetchData = async () => {
+			if (!user) {
+				return;
+			}
+
+			const data = await fetch(String(user?.homeworld));
+
+			const planet = await data.json();
+
+			setPlanet(planet);
+		};
+
+		fetchData();
+	}, [creatureId]);
+
+	if (!user || !id) {
+		return <Navigate to="/Creatures" replace />;
 	}
 
 	const nextUser = people.find(person => person.id > id);
@@ -22,7 +45,8 @@ export const PersonPage: React.FC = () => {
 		.sort((p1, p2) => p2.id - p1.id)
 		.find(person => person.id < id);
 
-	const { name, height, mass, gender } = user;
+	const { name: creatureName, gender } = user;
+	const { name: planetName, terrain, climate, population } = planet;
 
 	return (
 		<section className="fullHeight hero is-small is-primary is-warning">
@@ -33,7 +57,7 @@ export const PersonPage: React.FC = () => {
 							to="/Creatures"
 							className="button is-link is-outlined mr-3 is-size-5"
 						>
-							Back to people
+							Back to creatures
 						</Link>
 						<Link
 							to={`/Creatures/${prevUser ? prevUser.id : id}`}
@@ -55,20 +79,14 @@ export const PersonPage: React.FC = () => {
 						</Link>
 					</div>
 
-					<ul className="creatureInfo">
-						<li>
-							{`Name: ${name}`}
-						</li>
-						<li>
-							{`Height: ${height}`}
-						</li>
-						<li>
-							{`Mass: ${mass}`}
-						</li>
-						<li>
-							{`Gender: ${gender}`}
-						</li>
-					</ul>
+					<p>
+						{creatureName} is a {gender} who started it`s path on {planetName}
+						<br />
+						<br />
+						{planetName} has {terrain} terrain with {climate} climate
+						<br />
+						It also has more then {addCommas(population)} residents
+					</p>
 				</section>
 			</div>
 		</section>
