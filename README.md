@@ -1,6 +1,6 @@
-# People-Table
+# Creatures-List
 
-[Demo Link](https://tiserett.github.io/people-table/) to test the project
+[Demo Link](https://tiserett.github.io/creatures-list/) to test the project
 
 <hr />
 
