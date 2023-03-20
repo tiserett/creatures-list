@@ -48,6 +48,10 @@ export const PersonPage: React.FC = () => {
 	const { name: creatureName, gender } = user;
 	const { name: planetName, terrain, climate, population } = planet;
 
+	const populationText = population > 0 
+		? `Currently there are more than ${addCommas(population)} inhabitants` 
+		: `Amount of current inhabitants is unknown`
+
 	return (
 		<section className="fullHeight hero is-small is-primary is-warning">
 			<div className="hero-body">
@@ -85,7 +89,7 @@ export const PersonPage: React.FC = () => {
 						<br />
 						{planetName} has {terrain} terrain with {climate} climate
 						<br />
-						It also has more then {addCommas(population)} residents
+						{populationText}
 					</p>
 				</section>
 			</div>
