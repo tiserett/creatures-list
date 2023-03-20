@@ -6,7 +6,7 @@ import { DeleteModal } from '../../components/DeleteModal';
 import { EditModal } from '../../components/EditModal';
 import { Person } from '../../components/Person';
 import '../../styles/transition.scss';
-import '../../styles/person.scss';
+import '../../styles/creature.scss';
 import { PersonType } from '../../types/PersonType';
 
 export const People: React.FC = () => {
@@ -19,7 +19,7 @@ export const People: React.FC = () => {
 
 	const visiblePeople = useMemo(() => {
 		return people.filter(person =>
-			person.username.toLowerCase().includes(query.toLowerCase())
+			person.name.toLowerCase().includes(query.toLowerCase())
 		);
 	}, [query, people]);
 
@@ -34,25 +34,25 @@ export const People: React.FC = () => {
 	return (
 		<section className="hero">
 			<div className="hero-body p-5">
-				<p className="title">People list</p>
+				<p className="title">Creatures</p>
 
 				<button
 					type="submit"
 					className="button is-success is-outlined title is-5"
 					onClick={() => setIsAdding(true)}
 				>
-					Add new person
+					Add new creature
 				</button>
 
 				<input
 					className="input mb-5"
 					type="text"
-					placeholder="Enter username"
+					placeholder="Enter name"
 					value={query}
 					onChange={event => handleQuery(event.target.value)}
 				/>
 
-				<TransitionGroup component="div" className="people__wrapper">
+				<TransitionGroup component="div" className="creature__wrapper">
 					{visiblePeople.map(person => (
 						<CSSTransition key={person.id} timeout={1000} classNames="item">
 							<Person

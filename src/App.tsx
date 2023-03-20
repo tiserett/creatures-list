@@ -7,43 +7,46 @@ import { actions as peopleActions } from './features/people';
 import { Home } from './pages/Home';
 import { People } from './pages/People';
 import { PersonPage } from './pages/PersonPage';
+import { PersonType } from './types/PersonType';
 
 export const App = () => {
-  const dispatch = useAppDispatch();
+	const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetch('https://jsonplaceholder.typicode.com/users');
+	useEffect(() => {
+		const fetchData = async () => {
+			const data = await fetch('https://swapi.dev/api/people');
 
-      const peopleFromServer = await data.json();
+			let dataFromServer = await data.json();
 
-      dispatch(peopleActions.add(peopleFromServer));
-    };
+			dataFromServer = dataFromServer.results.map((person: PersonType, index: number) => ({ ...person, id: index + 1 }))
 
-    try {
-      fetchData();
-    } catch {
-      dispatch(peopleActions.add([]));
-    }
-  }, []);
+			dispatch(peopleActions.add(dataFromServer));
+		};
 
-  return (
-    <div className="App">
-      <Header />
+		try {
+			fetchData();
+		} catch {
+			dispatch(peopleActions.add([]));
+		}
+	}, []);
 
-      <Routes>
-        <Route path="Home" element={<Home />} />
+	return (
+		<div className="App">
+			<Header />
 
-        <Route path="People">
-          <Route index element={<People />} />
+			<Routes>
+				<Route path="Home" element={<Home />} />
 
-          <Route path=":personId" element={<PersonPage />} />
-        </Route>
+				<Route path="Creatures">
+					<Route index element={<People />} />
 
-        <Route path="/" element={<Navigate to="Home" replace />} />
+					<Route path=":creatureId" element={<PersonPage />} />
+				</Route>
 
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </div>
-  );
+				<Route path="/" element={<Navigate to="Home" replace />} />
+
+				<Route path="*" element={<NotFoundPage />} />
+			</Routes>
+		</div>
+	);
 };

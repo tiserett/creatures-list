@@ -5,13 +5,11 @@ export const Home = () => (
 	<section className="fullHeight hero is-medium is-primary">
 		<div className="hero-body">
 			<p className="title is-1 has-text-black-bis mb-6">
-				Welcome to People Table
-				<br />
-				Done by Maksym Sobko
+				Welcome to Star Wars themed creatures list 
 			</p>
 
-			<NavLink to="/People" className="button is-large is-link mb-4">
-				Show people
+			<NavLink to="/Creatures" className="button is-large is-link mb-4">
+				Show creatures
 			</NavLink>
 			<br />
 			<a

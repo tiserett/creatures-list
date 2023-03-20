@@ -6,7 +6,7 @@ export const Navigation = () => (
     <div className="navbar-start">
       <PageNavLink to="/Home" title="Home" />
 
-      <PageNavLink to="/People" title="People" />
+      <PageNavLink to="/Creatures" title="Creatures" />
     </div>
   </nav>
 );

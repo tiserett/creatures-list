@@ -1,4 +1,4 @@
-.person {
+.creature {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -16,12 +16,12 @@
     width: 45px;
   }
 
-	&__buttons {
-		display: flex;
-	}
+  &__buttons {
+    display: flex;
+  }
 }
 
-.people {
+.creature {
   &__wrapper {
     display: flex;
     flex-direction: column;

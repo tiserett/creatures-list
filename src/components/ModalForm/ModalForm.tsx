@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import React, { FormEvent, useState } from 'react';
 import { PersonType } from '../../types/PersonType';
-import { validateEmail } from '../../utils/validateEmail';
 
 type Props = {
 	person?: PersonType;
@@ -24,44 +23,20 @@ export const ModalForm: React.FC<Props> = ({
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value
-		const name = e.target.name;
 
 		if (value === ' ') {
 			return;
 		}
 
-		setUser(prev => {
-			let person: PersonType = { ...prev };
-
-			if (name === 'city' || name === 'street') {
-				person.address[name] = value;
-			} else {
-				person = { ...prev, [name]: value };
-			}
-
-			return person;
-		});
+		setUser(prev => ({ ...prev, [e.target.name]: value }));
 	};
 
 	const tempPerson: PersonType = {
 		id: person.id,
 		name: user.name,
-		username: user.username,
-		email: user.email,
-		address: {
-			street: user.address.street,
-			suite: person.address.suite,
-			city: user.address.city,
-			zipcode: person.address.zipcode,
-			geo: person.address.geo,
-		},
-		phone: person.phone,
-		website: person.website,
-		company: {
-			name: person.company.name,
-			catchPhrase: person.company.catchPhrase,
-			bs: person.company.catchPhrase,
-		},
+		height: user.height,
+		mass: user.mass,
+		gender: user.gender
 	};
 
 	const handleSumbit = (
@@ -69,10 +44,6 @@ export const ModalForm: React.FC<Props> = ({
 		newPerson: PersonType
 	) => {
 		event.preventDefault();
-
-		if (!validateEmail(newPerson.email)) {
-			return;
-		}
 
 		handlePeople(newPerson);
 		handleClose(false);
@@ -114,106 +85,57 @@ export const ModalForm: React.FC<Props> = ({
 
 						<div className="field">
 							<label className="label">
-								Username
+								Height
 								<div className="control">
 									<input
-										className={classNames('input', { 'is-success': user.username }, { 'is-danger': !user.username })}
+										className={classNames('input', { 'is-success': user.height }, { 'is-danger': !user.height })}
 										type="text"
-										placeholder="Username"
-										name="username"
-										value={user.username}
+										placeholder="Height"
+										name="height"
+										value={user.height}
 										onChange={handleChange}
 										required
 									/>
 								</div>
 							</label>
-							{!user.username && (
-								<p className="help is-danger">Please provide username</p>
+							{!user.height && (
+								<p className="help is-danger">Please provide height</p>
 							)}
 						</div>
 
 						<div className="field">
 							<label className="label">
-								Email
+								Mass
 								<div className="control">
 									<input
-										className={classNames('input',
-											{ 'is-success': validateEmail(user.email) },
-											{ 'is-danger': !validateEmail(user.email) }
-										)}
-										type="email"
-										placeholder="yourname@gmail.com"
-										name="email"
-										value={user.email}
+										className={classNames('input', { 'is-success': user.mass }, { 'is-danger': !user.mass })}
+										type="text"
+										placeholder="Mass"
+										name="mass"
+										value={user.mass}
 										onChange={handleChange}
 										required
 									/>
 								</div>
 							</label>
-							{!validateEmail(user.email) && (
-								<p className="help is-danger">This email is invalid</p>
-							)}
-						</div>
-
-						<div className="field">
-							<label className="label">
-								City
-								<div className="control">
-									<input
-										className={classNames('input',
-											{ 'is-success': user.address.city },
-											{ 'is-danger': !user.address.city }
-										)}
-										type="city"
-										placeholder="City"
-										name="city"
-										value={user.address.city}
-										onChange={handleChange}
-										required
-									/>
-								</div>
-							</label>
-							{!user.address.city && (
-								<p className="help is-danger">Please provide city</p>
-							)}
-						</div>
-
-						<div className="field">
-							<label className="label">
-								Street
-								<div className="control">
-									<input
-										className={classNames('input',
-											{ 'is-success': user.address.street },
-											{ 'is-danger': !user.address.street }
-										)}
-										type="street"
-										placeholder="Street"
-										name="street"
-										value={user.address.street}
-										onChange={handleChange}
-										required
-									/>
-								</div>
-							</label>
-							{!user.address.street && (
-								<p className="help is-danger">Please provide street</p>
+							{!user.mass && (
+								<p className="help is-danger">Please provide mass</p>
 							)}
 						</div>
 					</section>
 
-					<footer className="modal-card-foot">
-						<button type="submit" className="button is-success">
-							Save person
-						</button>
-						<button
-							type="button"
-							className="button"
-							onClick={() => handleClose(false)}
-						>
-							Cancel
-						</button>
-					</footer>
+						<footer className="modal-card-foot">
+							<button type="submit" className="button is-success">
+								Save person
+							</button>
+							<button
+								type="button"
+								className="button"
+								onClick={() => handleClose(false)}
+							>
+								Cancel
+							</button>
+						</footer>
 				</form>
 			</div>
 		</div>

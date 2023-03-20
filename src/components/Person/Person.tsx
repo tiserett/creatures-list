@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PersonType } from '../../types/PersonType';
-import '../../styles/person.scss'
+import '../../styles/creature.scss'
 
 type Props = {
 	person: PersonType;
@@ -17,22 +17,21 @@ export const Person: React.FC<Props> = ({
 	handleIsEditing,
 	setId,
 }) => {
-	const { id, name, username, email, address } = person;
+	const { id, name, height, mass, gender } = person;
 
 	const [isEdited, setIsEdited] = useState(false);
 
 	return (
-		<div className={classNames('person', { 'is-italic': isEdited })}>
-			<span className="person__id">{id}</span>
-			<span className="person__infoWrapper">{name}</span>
-			<span className="person__infoWrapper">{username}</span>
-			<span className="person__infoWrapper">{email}</span>
-			<span className="person__infoWrapper">{address.city}</span>
-			<span className="person__infoWrapper">{address.street}</span>
+		<div className={classNames('creature', { 'is-italic': isEdited })}>
+			<span className="creature__id">{id}</span>
+			<span className="creature__infoWrapper">{name}</span>
+			<span className="creature__infoWrapper">{height}</span>
+			<span className="creature__infoWrapper">{mass}</span>
+			<span className="creature__infoWrapper">{gender}</span>
 
-			<div className="person__buttons">
-				<Link to={`/People/${id}`} className="button is-link is-outlined mr-3">
-					Select
+			<div className="creature__buttons">
+				<Link to={`/Creatures/${id}`} className="button is-link is-outlined mr-3">
+					Read more
 				</Link>
 				<button
 					type="submit"
