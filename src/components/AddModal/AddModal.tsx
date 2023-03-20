@@ -14,7 +14,7 @@ export const AddModal: React.FC<Props> = ({ setIsAdding }) => {
 
 	const maxId = [...people].sort((p1, p2) => p2.id - p1.id)[0].id;
 
-	const defaultPerson: PersonType = {
+	const defaultCreature: PersonType = {
 		id: maxId + 1,
 		name: 'Droid',
 		height: 170,
@@ -28,7 +28,7 @@ export const AddModal: React.FC<Props> = ({ setIsAdding }) => {
 
 	return (
 		<ModalForm
-			person={defaultPerson}
+			person={defaultCreature}
 			handlePeople={handlePeople}
 			handleClose={setIsAdding}
 			title="Add new creature"

@@ -21,6 +21,17 @@ export const ModalForm: React.FC<Props> = ({
 
 	const [user, setUser] = useState<PersonType>(person);
 
+	const planetId = Math.floor(Math.random() * (10 - 1) + 1);
+
+	const tempCreature: PersonType = {
+		id: person.id,
+		name: user.name,
+		height: user.height,
+		mass: user.mass,
+		gender: user.gender,
+		homeworld: `https://swapi.dev/api/planets/${planetId}/`
+	};
+
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value
 
@@ -29,14 +40,6 @@ export const ModalForm: React.FC<Props> = ({
 		}
 
 		setUser(prev => ({ ...prev, [e.target.name]: value }));
-	};
-
-	const tempPerson: PersonType = {
-		id: person.id,
-		name: user.name,
-		height: user.height,
-		mass: user.mass,
-		gender: user.gender
 	};
 
 	const handleSumbit = (
@@ -62,7 +65,7 @@ export const ModalForm: React.FC<Props> = ({
 						onClick={() => handleClose(false)}
 					/>
 				</header>
-				<form action="" onSubmit={event => handleSumbit(event, tempPerson)}>
+				<form action="" onSubmit={event => handleSumbit(event, tempCreature)}>
 					<section className="modal-card-body">
 						<div className="field">
 							<label className="label">
@@ -124,18 +127,18 @@ export const ModalForm: React.FC<Props> = ({
 						</div>
 					</section>
 
-						<footer className="modal-card-foot">
-							<button type="submit" className="button is-success">
-								Save person
-							</button>
-							<button
-								type="button"
-								className="button"
-								onClick={() => handleClose(false)}
-							>
-								Cancel
-							</button>
-						</footer>
+					<footer className="modal-card-foot">
+						<button type="submit" className="button is-success">
+							Save creature
+						</button>
+						<button
+							type="button"
+							className="button"
+							onClick={() => handleClose(false)}
+						>
+							Cancel
+						</button>
+					</footer>
 				</form>
 			</div>
 		</div>
