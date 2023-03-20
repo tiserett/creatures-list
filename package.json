@@ -1,6 +1,6 @@
 {
-  "name": "people-table",
-  "homepage": "https://tiserett.github.io/people-table",
+  "name": "creatures-list",
+  "homepage": "https://tiserett.github.io/creatures-list",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
