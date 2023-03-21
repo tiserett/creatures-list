@@ -15,19 +15,19 @@ export const CreaturePage: React.FC = () => {
 		climate: '',
 		population: 0
 	});
-	const people: CreatureType[] = useSelector((state: CreaturesState) => state.creatures.creatures);
+	const creatures: CreatureType[] = useSelector((state: CreaturesState) => state.creatures.creatures);
 	const { creatureId } = useParams();
 
 	const id = Number(creatureId);
-	const user = people.find(person => person.id === id);
+	const creature = creatures.find(creature => creature.id === id);
 
 	useEffect(() => {
 		const fetchData = async () => {
-			if (!user) {
+			if (!creature) {
 				return;
 			}
 
-			const data = await fetch(String(user?.homeworld));
+			const data = await fetch(String(creature?.homeworld));
 
 			const planet = await data.json();
 
@@ -37,16 +37,16 @@ export const CreaturePage: React.FC = () => {
 		fetchData();
 	}, [creatureId]);
 
-	if (!user || !id) {
+	if (!creature || !id) {
 		return <Navigate to="/Creatures" replace />;
 	}
 
-	const nextUser = people.find(person => person.id > id);
-	const prevUser = [...people]
+	const nextCreature = creatures.find(creature => creature.id > id);
+	const prevCreature = [...creatures]
 		.sort((p1, p2) => p2.id - p1.id)
-		.find(person => person.id < id);
+		.find(creature => creature.id < id);
 
-	const { name: creatureName, gender } = user;
+	const { name: creatureName, gender } = creature;
 	const { name: planetName, terrain, climate, population } = planet;
 
 	const populationText = population > 0
@@ -65,19 +65,19 @@ export const CreaturePage: React.FC = () => {
 							Back to creatures
 						</Link>
 						<Link
-							to={`/Creatures/${prevUser ? prevUser.id : id}`}
+							to={`/Creatures/${prevCreature ? prevCreature.id : id}`}
 							className={classNames(
 								'button is-link is-outlined mr-3 is-size-5',
-								{ 'disabled is-danger': prevUser ? !prevUser.id : true }
+								{ 'disabled is-danger': prevCreature ? !prevCreature.id : true }
 							)}
 						>
 							Previous
 						</Link>
 						<Link
-							to={`/Creatures/${nextUser ? nextUser.id : id}`}
+							to={`/Creatures/${nextCreature ? nextCreature.id : id}`}
 							className={classNames(
 								'button is-link is-outlined mr-3 is-size-5',
-								{ 'disabled is-danger': nextUser ? !nextUser.id : true }
+								{ 'disabled is-danger': nextCreature ? !nextCreature.id : true }
 							)}
 						>
 							Next

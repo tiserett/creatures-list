@@ -19,16 +19,18 @@ export const ModalForm: React.FC<Props> = ({
 		return null;
 	}
 
-	const [user, setUser] = useState<CreatureType>(creature);
+	const [selectedCreature, setSelectedCreature] = useState<CreatureType>(creature);
+
+	const { name, height, mass, gender } = selectedCreature;
 
 	const planetId = Math.floor(Math.random() * (10 - 1) + 1);
 
 	const tempCreature: CreatureType = {
 		id: creature.id,
-		name: user.name,
-		height: user.height,
-		mass: user.mass,
-		gender: user.gender,
+		name,
+		height,
+		mass,
+		gender,
 		homeworld: `https://swapi.dev/api/planets/${planetId}/`
 	};
 
@@ -39,7 +41,7 @@ export const ModalForm: React.FC<Props> = ({
 			return;
 		}
 
-		setUser(prev => ({ ...prev, [e.target.name]: value }));
+		setSelectedCreature(prev => ({ ...prev, [e.target.name]: value }));
 	};
 
 	const handleSumbit = (
@@ -72,18 +74,18 @@ export const ModalForm: React.FC<Props> = ({
 								Name
 								<div className="control">
 									<input
-										className={classNames('input', { 'is-success': user.name }, { 'is-danger': !user.name })}
+										className={classNames('input', { 'is-success': name }, { 'is-danger': !name })}
 										type="text"
 										placeholder="Name"
 										name="name"
-										value={user.name}
+										value={name}
 										onChange={handleChange}
 										required
 									/>
 								</div>
 							</label>
 
-							{!user.name && <p className="help is-danger">Please provide name</p>}
+							{!name && <p className="help is-danger">Please provide name</p>}
 						</div>
 
 						<div className="field">
@@ -91,17 +93,17 @@ export const ModalForm: React.FC<Props> = ({
 								Height
 								<div className="control">
 									<input
-										className={classNames('input', { 'is-success': user.height }, { 'is-danger': !user.height })}
+										className={classNames('input', { 'is-success': height }, { 'is-danger': !height })}
 										type="text"
 										placeholder="Height"
 										name="height"
-										value={user.height}
+										value={height}
 										onChange={handleChange}
 										required
 									/>
 								</div>
 							</label>
-							{!user.height && (
+							{!height && (
 								<p className="help is-danger">Please provide height</p>
 							)}
 						</div>
@@ -111,17 +113,17 @@ export const ModalForm: React.FC<Props> = ({
 								Mass
 								<div className="control">
 									<input
-										className={classNames('input', { 'is-success': user.mass }, { 'is-danger': !user.mass })}
+										className={classNames('input', { 'is-success': mass }, { 'is-danger': !mass })}
 										type="text"
 										placeholder="Mass"
 										name="mass"
-										value={user.mass}
+										value={mass}
 										onChange={handleChange}
 										required
 									/>
 								</div>
 							</label>
-							{!user.mass && (
+							{!mass && (
 								<p className="help is-danger">Please provide mass</p>
 							)}
 						</div>
