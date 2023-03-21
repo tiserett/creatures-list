@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteCreature } from '../../redux/slices/creaturesSlice';
-import { CreaturesState } from '../../types/CreatureState';
-import { CreatureType } from '../../types/CreatureType';
+import { RootState } from '../../redux/store';
+import { Creature } from '../../types/Creature';
 
 type Props = {
 	id: number;
@@ -11,7 +11,7 @@ type Props = {
 
 export const DeleteModal: React.FC<Props> = ({ id, handleIsDeleting }) => {
 	const dispatch = useDispatch();
-	const creatures: CreatureType[] = useSelector((state: CreaturesState) => state.creatures.creatures);
+	const creatures: Creature[] = useSelector((state: RootState) => state.creatures.creatures);
 	const creature = creatures.find(creature => creature.id === id);
 
 	if (creature === undefined) {

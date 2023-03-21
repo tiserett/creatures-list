@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCreature } from '../../redux/slices/creaturesSlice';
-import { CreaturesState } from '../../types/CreatureState';
-import { CreatureType } from '../../types/CreatureType';
+import { RootState } from '../../redux/store';
+import { Creature } from '../../types/Creature';
 import { ModalForm } from '../ModalForm';
 
 type Props = {
@@ -11,11 +11,11 @@ type Props = {
 
 export const AddModal: React.FC<Props> = ({ setIsAdding }) => {
 	const dispatch = useDispatch();
-	const creatures: CreatureType[] = useSelector((state: CreaturesState) => state.creatures.creatures);
+	const creatures: Creature[] = useSelector((state: RootState) => state.creatures.creatures);
 
 	const maxId = [...creatures].sort((p1, p2) => p2.id - p1.id)[0].id;
 
-	const defaultCreature: CreatureType = {
+	const defaultCreature: Creature = {
 		id: maxId + 1,
 		name: 'Droid',
 		height: 170,
@@ -23,7 +23,7 @@ export const AddModal: React.FC<Props> = ({ setIsAdding }) => {
 		gender: 'male'
 	};
 
-	const handleCreatures = (newCreature: CreatureType) => {
+	const handleCreatures = (newCreature: Creature) => {
 		dispatch(addCreature(newCreature));
 	};
 

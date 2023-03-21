@@ -2,11 +2,11 @@ import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, Navigate, useParams } from 'react-router-dom';
-import { CreaturesState } from '../../types/CreatureState';
-import { CreatureType } from '../../types/CreatureType';
+import { Creature } from '../../types/Creature';
 import { Planet } from '../../types/Planet';
 import { addCommas } from '../../utils/addComas';
 import '../../styles/CreaturePage.scss';
+import { RootState } from '../../redux/store';
 
 export const CreaturePage: React.FC = () => {
 	const [planet, setPlanet] = useState<Planet>({
@@ -15,7 +15,7 @@ export const CreaturePage: React.FC = () => {
 		climate: '',
 		population: 0
 	});
-	const creatures: CreatureType[] = useSelector((state: CreaturesState) => state.creatures.creatures);
+	const creatures: Creature[] = useSelector((state: RootState) => state.creatures.creatures);
 	const { creatureId } = useParams();
 
 	const id = Number(creatureId);

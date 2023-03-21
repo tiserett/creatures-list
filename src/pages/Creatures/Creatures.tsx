@@ -5,13 +5,13 @@ import { DeleteModal } from '../../components/DeleteModal';
 import { EditModal } from '../../components/EditModal';
 import '../../styles/transition.scss';
 import '../../styles/creature.scss';
-import { CreatureType } from '../../types/CreatureType';
+import { Creature as CreatureType } from '../../types/Creature';
 import { Creature } from '../../components/Creature';
 import { useSelector } from 'react-redux';
-import { CreaturesState } from '../../types/CreatureState';
+import { RootState } from '../../redux/store';
 
 export const Creatures: React.FC = () => {
-	const creatures: CreatureType[] = useSelector((state: CreaturesState) => state.creatures.creatures);
+	const creatures: CreatureType[] = useSelector((state: RootState) => state.creatures.creatures);
 	const [query, setQuery] = useState('');
 	const [isDeleting, setIsDeleting] = useState(false);
 	const [isAdding, setIsAdding] = useState(false);

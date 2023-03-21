@@ -5,9 +5,9 @@ import { NotFoundPage } from './components/NotFoundPage';
 import { Home } from './pages/Home';
 import { Creatures } from './pages/Creatures';
 import { CreaturePage } from './pages/CreaturePage';
-import { CreatureType } from './types/CreatureType';
 import { addCreatures, clearCreatures } from './redux/slices/creaturesSlice';
 import { useDispatch } from 'react-redux';
+import { Creature } from './types/Creature';
 
 export const App = () => {
 	const dispatch = useDispatch();
@@ -19,7 +19,7 @@ export const App = () => {
 			let dataFromServer = await data.json();
 
 			dataFromServer = dataFromServer.results.map(
-				(creature: CreatureType, index: number) => ({ ...creature, id: index + 1 })
+				(creature: Creature, index: number) => ({ ...creature, id: index + 1 })
 			)
 
 			dispatch(addCreatures(dataFromServer));

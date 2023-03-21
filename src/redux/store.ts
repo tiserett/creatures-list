@@ -6,3 +6,5 @@ export const store = configureStore({
 		creatures: creaturesSliceReducer
 	}
 });
+
+export type RootState = ReturnType<typeof store.getState>

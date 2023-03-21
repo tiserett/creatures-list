@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CreatureType } from '../../types/CreatureType';
+import { Creature as CreatureType } from '../../types/Creature';
 import '../../styles/creature.scss'
 
 type Props = {

@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { CreatureInitialState } from '../../types/CreatureInitialState';
+import { Creature } from '../../types/Creature';
 
-const initialState = {
+const initialState: { creatures: Creature[] } = {
   creatures: [],
-} as CreatureInitialState;
+};
 
 export const creaturesSlice = createSlice({
   name: 'creaturesSlice',

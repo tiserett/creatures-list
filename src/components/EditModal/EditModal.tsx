@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {  updateCreature } from '../../redux/slices/creaturesSlice';
-import { CreaturesState } from '../../types/CreatureState';
-import { CreatureType } from '../../types/CreatureType';
+import { updateCreature } from '../../redux/slices/creaturesSlice';
+import { RootState } from '../../redux/store';
+import { Creature } from '../../types/Creature';
 import { ModalForm } from '../ModalForm';
 
 type Props = {
@@ -12,7 +12,7 @@ type Props = {
 
 export const EditModal: React.FC<Props> = ({ setIsEditing, id }) => {
 	const dispatch = useDispatch();
-	const creatures: CreatureType[] = useSelector((state: CreaturesState) => state.creatures.creatures);
+	const creatures: Creature[] = useSelector((state: RootState) => state.creatures.creatures);
 
 	const selectedCreature = creatures.find(creature => creature.id === id);
 
@@ -20,7 +20,7 @@ export const EditModal: React.FC<Props> = ({ setIsEditing, id }) => {
 		return null;
 	}
 
-	const handleCreatures = (newCreature: CreatureType) => {
+	const handleCreatures = (newCreature: Creature) => {
 		dispatch(updateCreature({ id: selectedCreature.id, creature: newCreature }));
 	};
 
