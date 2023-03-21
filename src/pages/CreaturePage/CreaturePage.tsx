@@ -6,6 +6,7 @@ import { Planet } from '../../types/Planet';
 import { addCommas } from '../../utils/addComas';
 import '../../styles/CreaturePage.scss';
 import { useAppSelector } from '../../hooks/redux';
+import { ThreeDots } from 'react-loader-spinner'
 
 export const CreaturePage: React.FC = () => {
 	const [planet, setPlanet] = useState<Planet>({
@@ -14,6 +15,7 @@ export const CreaturePage: React.FC = () => {
 		climate: '',
 		population: 0
 	});
+	const [isLoading, setIsLoading] = useState(false);
 	const creatures: Creature[] = useAppSelector(state => state.creatures.creatures);
 	const { creatureId } = useParams();
 
@@ -22,18 +24,31 @@ export const CreaturePage: React.FC = () => {
 
 	useEffect(() => {
 		const fetchData = async () => {
+			setIsLoading(true);
+
 			if (!creature) {
 				return;
 			}
 
 			const data = await fetch(String(creature?.homeworld));
-
 			const planet = await data.json();
 
-			setPlanet(planet);
+			setTimeout(() => {
+				setIsLoading(false)
+				setPlanet(planet);
+			}, 1000);
 		};
 
-		fetchData();
+		try {
+			fetchData();
+		} catch {
+			setPlanet({
+				name: 'unknown',
+				terrain: 'unknown',
+				climate: 'unknown',
+				population: 0
+			})
+		}
 	}, [creatureId]);
 
 	if (!creature || !id) {
@@ -53,46 +68,64 @@ export const CreaturePage: React.FC = () => {
 		: `Amount of current inhabitants is unknown`
 
 	return (
-		<section className="fullHeight hero is-small is-primary is-warning">
-			<div className="hero-body">
-				<section className="title">
-					<div className="mb-6">
-						<Link
-							to="/Creatures"
-							className="button is-link is-outlined mr-3 is-size-5"
-						>
-							Back to creatures
-						</Link>
-						<Link
-							to={`/Creatures/${prevCreature ? prevCreature.id : id}`}
-							className={classNames(
-								'button is-link is-outlined mr-3 is-size-5',
-								{ 'disabled is-danger': prevCreature ? !prevCreature.id : true }
-							)}
-						>
-							Previous
-						</Link>
-						<Link
-							to={`/Creatures/${nextCreature ? nextCreature.id : id}`}
-							className={classNames(
-								'button is-link is-outlined mr-3 is-size-5',
-								{ 'disabled is-danger': nextCreature ? !nextCreature.id : true }
-							)}
-						>
-							Next
-						</Link>
-					</div>
+		<>
+			{isLoading ? (
+				<ThreeDots
+					height="80"
+					width="80"
+					radius="9"
+					color="#4fa94d"
+					ariaLabel="three-dots-loading"
+					visible={true}
+					wrapperStyle={{
+						display: 'grid',
+						placeItems: 'center',
+						height: 'calc(100vh - 52px)'
+					}}
+				/>
+			) : (
+				<section className="fullHeight hero is-small is-primary is-warning">
+					<div className="hero-body">
+						<section className="title">
+							<div className="mb-6">
+								<Link
+									to="/Creatures"
+									className="button is-link is-outlined mr-3 is-size-5"
+								>
+									Back to creatures
+								</Link>
+								<Link
+									to={`/Creatures/${prevCreature ? prevCreature.id : id}`}
+									className={classNames(
+										'button is-link is-outlined mr-3 is-size-5',
+										{ 'disabled is-danger': prevCreature ? !prevCreature.id : true }
+									)}
+								>
+									Previous
+								</Link>
+								<Link
+									to={`/Creatures/${nextCreature ? nextCreature.id : id}`}
+									className={classNames(
+										'button is-link is-outlined mr-3 is-size-5',
+										{ 'disabled is-danger': nextCreature ? !nextCreature.id : true }
+									)}
+								>
+									Next
+								</Link>
+							</div>
 
-					<p>
-						{creatureName} is a {gender} who started it`s path on {planetName}
-						<br />
-						<br />
-						{planetName} has {terrain} terrain with {climate} climate
-						<br />
-						{populationText}
-					</p>
+							<p>
+								{creatureName} is a {gender} who started it`s path on {planetName}
+								<br />
+								<br />
+								{planetName} has {terrain} terrain with {climate} climate
+								<br />
+								{populationText}
+							</p>
+						</section>
+					</div>
 				</section>
-			</div>
-		</section>
+			)}
+		</>
 	);
 };
