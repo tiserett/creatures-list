@@ -1,7 +1,6 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { addCreature } from '../../redux/slices/creaturesSlice';
-import { RootState } from '../../redux/store';
 import { Creature } from '../../types/Creature';
 import { ModalForm } from '../ModalForm';
 
@@ -10,8 +9,8 @@ type Props = {
 };
 
 export const AddModal: React.FC<Props> = ({ setIsAdding }) => {
-	const dispatch = useDispatch();
-	const creatures: Creature[] = useSelector((state: RootState) => state.creatures.creatures);
+	const dispatch = useAppDispatch();
+	const creatures: Creature[] = useAppSelector(state => state.creatures.creatures);
 
 	const maxId = [...creatures].sort((p1, p2) => p2.id - p1.id)[0].id;
 

@@ -7,11 +7,10 @@ import '../../styles/transition.scss';
 import '../../styles/creature.scss';
 import { Creature as CreatureType } from '../../types/Creature';
 import { Creature } from '../../components/Creature';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
+import { useAppSelector } from '../../hooks/redux';
 
 export const Creatures: React.FC = () => {
-	const creatures: CreatureType[] = useSelector((state: RootState) => state.creatures.creatures);
+	const creatures: CreatureType[] = useAppSelector(state => state.creatures.creatures);
 	const [query, setQuery] = useState('');
 	const [isDeleting, setIsDeleting] = useState(false);
 	const [isAdding, setIsAdding] = useState(false);

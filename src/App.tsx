@@ -6,11 +6,11 @@ import { Home } from './pages/Home';
 import { Creatures } from './pages/Creatures';
 import { CreaturePage } from './pages/CreaturePage';
 import { addCreatures, clearCreatures } from './redux/slices/creaturesSlice';
-import { useDispatch } from 'react-redux';
 import { Creature } from './types/Creature';
+import { useAppDispatch } from './hooks/redux';
 
 export const App = () => {
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
 	useEffect(() => {
 		const fetchData = async () => {

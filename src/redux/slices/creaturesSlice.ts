@@ -1,7 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Creature } from '../../types/Creature';
 
-const initialState: { creatures: Creature[] } = {
+interface CreaturesState {
+  creatures: Creature[];
+}
+
+const initialState: CreaturesState = {
   creatures: [],
 };
 
@@ -9,7 +13,7 @@ export const creaturesSlice = createSlice({
   name: 'creaturesSlice',
   initialState,
   reducers: {
-    addCreatures: (state, action) => {
+    addCreatures: (state, action: PayloadAction<Creature[]>) => {
       for (const creature of action.payload) {
         state.creatures.push(creature);
       }
@@ -17,15 +21,18 @@ export const creaturesSlice = createSlice({
     clearCreatures: state => {
       state.creatures = [];
     },
-    addCreature: (state, action) => {
+    addCreature: (state, action: PayloadAction<Creature>) => {
       state.creatures.push(action.payload);
     },
-    deleteCreature: (state, action) => {
+    deleteCreature: (state, action: PayloadAction<number>) => {
       state.creatures = [...state.creatures].filter(
         creature => creature.id !== action.payload
       );
     },
-    updateCreature: (state, action) => {
+    updateCreature: (
+      state,
+      action: PayloadAction<{ id: number; creature: Creature }>
+    ) => {
       state.creatures = [...state.creatures].map(creature => {
         if (creature.id === action.payload.id) {
           return action.payload.creature;
