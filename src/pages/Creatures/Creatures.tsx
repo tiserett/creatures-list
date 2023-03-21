@@ -1,27 +1,28 @@
 import React, { useMemo, useState } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { useAppSelector } from '../../app/hooks';
 import { AddModal } from '../../components/AddModal';
 import { DeleteModal } from '../../components/DeleteModal';
 import { EditModal } from '../../components/EditModal';
-import { Person } from '../../components/Person';
 import '../../styles/transition.scss';
 import '../../styles/creature.scss';
-import { PersonType } from '../../types/PersonType';
+import { CreatureType } from '../../types/CreatureType';
+import { Creature } from '../../components/Creature';
+import { useSelector } from 'react-redux';
+import { CreaturesState } from '../../types/CreatureState';
 
-export const People: React.FC = () => {
-	const people: PersonType[] = useAppSelector(state => state.people);
+export const Creatures: React.FC = () => {
+	const creatures: CreatureType[] = useSelector((state: CreaturesState) => state.creatures.creatures);
 	const [query, setQuery] = useState('');
 	const [isDeleting, setIsDeleting] = useState(false);
 	const [isAdding, setIsAdding] = useState(false);
 	const [isEditing, setIsEditing] = useState(false);
 	const [id, setId] = useState(0);
 
-	const visiblePeople = useMemo(() => {
-		return people.filter(person =>
-			person.name.toLowerCase().includes(query.toLowerCase())
+	const visibleCreatures = useMemo(() => {
+		return creatures.filter(creatures =>
+			creatures.name.toLowerCase().includes(query.toLowerCase())
 		);
-	}, [query, people]);
+	}, [query, creatures]);
 
 	const handleQuery = (value: string) => {
 		if (value === ' ') {
@@ -53,10 +54,10 @@ export const People: React.FC = () => {
 				/>
 
 				<TransitionGroup component="div" className="creature__wrapper">
-					{visiblePeople.map(person => (
-						<CSSTransition key={person.id} timeout={1000} classNames="item">
-							<Person
-								person={person}
+					{visibleCreatures.map(creature => (
+						<CSSTransition key={creature.id} timeout={1000} classNames="item">
+							<Creature
+								creature={creature}
 								handleIsDeleting={setIsDeleting}
 								handleIsEditing={setIsEditing}
 								setId={setId}

@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { useAppDispatch } from './app/hooks';
 import { Header } from './components/Header';
 import { NotFoundPage } from './components/NotFoundPage';
-import { actions as peopleActions } from './features/people';
 import { Home } from './pages/Home';
-import { People } from './pages/People';
-import { PersonPage } from './pages/PersonPage';
-import { PersonType } from './types/PersonType';
+import { Creatures } from './pages/Creatures';
+import { CreaturePage } from './pages/CreaturePage';
+import { CreatureType } from './types/CreatureType';
+import { addCreatures, clearCreatures } from './redux/slices/creaturesSlice';
+import { useDispatch } from 'react-redux';
 
 export const App = () => {
-	const dispatch = useAppDispatch();
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -18,15 +18,17 @@ export const App = () => {
 
 			let dataFromServer = await data.json();
 
-			dataFromServer = dataFromServer.results.map((person: PersonType, index: number) => ({ ...person, id: index + 1 }))
+			dataFromServer = dataFromServer.results.map(
+				(creature: CreatureType, index: number) => ({ ...creature, id: index + 1 })
+			)
 
-			dispatch(peopleActions.add(dataFromServer));
+			dispatch(addCreatures(dataFromServer));
 		};
 
 		try {
 			fetchData();
 		} catch {
-			dispatch(peopleActions.add([]));
+			dispatch(clearCreatures)();
 		}
 	}, []);
 
@@ -38,9 +40,9 @@ export const App = () => {
 				<Route path="Home" element={<Home />} />
 
 				<Route path="Creatures">
-					<Route index element={<People />} />
+					<Route index element={<Creatures />} />
 
-					<Route path=":creatureId" element={<PersonPage />} />
+					<Route path=":creatureId" element={<CreaturePage />} />
 				</Route>
 
 				<Route path="/" element={<Navigate to="Home" replace />} />

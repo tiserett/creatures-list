@@ -1,12 +1,12 @@
 import React from 'react';
-import { PageNavLink } from '../PageNavLink';
+import { NavigationLink } from '../NavigationLink';
 
 export const Navigation = () => (
   <nav className="navbar is-dark" aria-label="main navigation">
     <div className="navbar-start">
-      <PageNavLink to="/Home" title="Home" />
+      <NavigationLink to="/Home" title="Home" />
 
-      <PageNavLink to="/Creatures" title="Creatures" />
+      <NavigationLink to="/Creatures" title="Creatures" />
     </div>
   </nav>
 );

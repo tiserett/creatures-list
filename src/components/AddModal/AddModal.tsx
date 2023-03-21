@@ -1,7 +1,8 @@
 import React from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { actions as peopleActions } from '../../features/people';
-import { PersonType } from '../../types/PersonType';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCreature } from '../../redux/slices/creaturesSlice';
+import { CreaturesState } from '../../types/CreatureState';
+import { CreatureType } from '../../types/CreatureType';
 import { ModalForm } from '../ModalForm';
 
 type Props = {
@@ -9,12 +10,12 @@ type Props = {
 };
 
 export const AddModal: React.FC<Props> = ({ setIsAdding }) => {
-	const dispatch = useAppDispatch();
-	const people: PersonType[] = useAppSelector(state => state.people);
+	const dispatch = useDispatch();
+	const creatures: CreatureType[] = useSelector((state: CreaturesState) => state.creatures.creatures);
 
-	const maxId = [...people].sort((p1, p2) => p2.id - p1.id)[0].id;
+	const maxId = [...creatures].sort((p1, p2) => p2.id - p1.id)[0].id;
 
-	const defaultCreature: PersonType = {
+	const defaultCreature: CreatureType = {
 		id: maxId + 1,
 		name: 'Droid',
 		height: 170,
@@ -22,14 +23,14 @@ export const AddModal: React.FC<Props> = ({ setIsAdding }) => {
 		gender: 'male'
 	};
 
-	const handlePeople = (newPerson: PersonType) => {
-		dispatch(peopleActions.add([...people, newPerson]));
+	const handleCreatures = (newCreature: CreatureType) => {
+		dispatch(addCreature(newCreature));
 	};
 
 	return (
 		<ModalForm
-			person={defaultCreature}
-			handlePeople={handlePeople}
+			creature={defaultCreature}
+			handleCreatures={handleCreatures}
 			handleClose={setIsAdding}
 			title="Add new creature"
 		/>

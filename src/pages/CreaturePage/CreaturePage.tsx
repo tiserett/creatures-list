@@ -1,20 +1,21 @@
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link, Navigate, useParams } from 'react-router-dom';
-import { useAppSelector } from '../../app/hooks';
-import { PersonType } from '../../types/PersonType';
+import { CreaturesState } from '../../types/CreatureState';
+import { CreatureType } from '../../types/CreatureType';
 import { Planet } from '../../types/Planet';
 import { addCommas } from '../../utils/addComas';
-import './PersonPage.scss';
+import '../../styles/CreaturePage.scss';
 
-export const PersonPage: React.FC = () => {
+export const CreaturePage: React.FC = () => {
 	const [planet, setPlanet] = useState<Planet>({
 		name: '',
 		terrain: '',
 		climate: '',
 		population: 0
 	});
-	const people: PersonType[] = useAppSelector(state => state.people);
+	const people: CreatureType[] = useSelector((state: CreaturesState) => state.creatures.creatures);
 	const { creatureId } = useParams();
 
 	const id = Number(creatureId);
@@ -48,8 +49,8 @@ export const PersonPage: React.FC = () => {
 	const { name: creatureName, gender } = user;
 	const { name: planetName, terrain, climate, population } = planet;
 
-	const populationText = population > 0 
-		? `Currently there are more than ${addCommas(population)} inhabitants` 
+	const populationText = population > 0
+		? `Currently there are more than ${addCommas(population)} inhabitants`
 		: `Amount of current inhabitants is unknown`
 
 	return (

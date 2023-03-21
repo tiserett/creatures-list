@@ -1,30 +1,30 @@
 import classNames from 'classnames';
 import React, { FormEvent, useState } from 'react';
-import { PersonType } from '../../types/PersonType';
+import { CreatureType } from '../../types/CreatureType';
 
 type Props = {
-	person?: PersonType;
-	handlePeople: (people: PersonType) => void;
+	creature?: CreatureType;
+	handleCreatures: (creatures: CreatureType) => void;
 	handleClose: (isOpened: boolean) => void;
 	title: string;
 };
 
 export const ModalForm: React.FC<Props> = ({
-	person,
-	handlePeople,
+	creature,
+	handleCreatures,
 	handleClose,
 	title,
 }) => {
-	if (person === undefined) {
+	if (creature === undefined) {
 		return null;
 	}
 
-	const [user, setUser] = useState<PersonType>(person);
+	const [user, setUser] = useState<CreatureType>(creature);
 
 	const planetId = Math.floor(Math.random() * (10 - 1) + 1);
 
-	const tempCreature: PersonType = {
-		id: person.id,
+	const tempCreature: CreatureType = {
+		id: creature.id,
 		name: user.name,
 		height: user.height,
 		mass: user.mass,
@@ -44,11 +44,11 @@ export const ModalForm: React.FC<Props> = ({
 
 	const handleSumbit = (
 		event: FormEvent<HTMLFormElement>,
-		newPerson: PersonType
+		newCreature: CreatureType
 	) => {
 		event.preventDefault();
 
-		handlePeople(newPerson);
+		handleCreatures(newCreature);
 		handleClose(false);
 	};
 

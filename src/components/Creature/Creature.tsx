@@ -1,23 +1,23 @@
 import classNames from 'classnames';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { PersonType } from '../../types/PersonType';
+import { CreatureType } from '../../types/CreatureType';
 import '../../styles/creature.scss'
 
 type Props = {
-	person: PersonType;
+	creature: CreatureType;
 	handleIsDeleting: (isOpen: boolean) => void;
 	handleIsEditing: (isEditing: boolean) => void;
 	setId: (id: number) => void;
 };
 
-export const Person: React.FC<Props> = ({
-	person,
+export const Creature: React.FC<Props> = ({
+	creature,
 	handleIsDeleting,
 	handleIsEditing,
 	setId,
 }) => {
-	const { id, name, height, mass, gender } = person;
+	const { id, name, height, mass, gender } = creature;
 
 	const [isEdited, setIsEdited] = useState(false);
 

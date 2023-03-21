@@ -1,44 +1,35 @@
 import React from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { actions as peopleActions } from '../../features/people';
-import { PersonType } from '../../types/PersonType';
+import { useDispatch, useSelector } from 'react-redux';
+import {  updateCreature } from '../../redux/slices/creaturesSlice';
+import { CreaturesState } from '../../types/CreatureState';
+import { CreatureType } from '../../types/CreatureType';
 import { ModalForm } from '../ModalForm';
 
 type Props = {
-  setIsEditing: (isEditing: boolean) => void;
-  id: number;
+	setIsEditing: (isEditing: boolean) => void;
+	id: number;
 };
 
 export const EditModal: React.FC<Props> = ({ setIsEditing, id }) => {
-  const dispatch = useAppDispatch();
-  const people: PersonType[] = useAppSelector(state => state.people);
+	const dispatch = useDispatch();
+	const creatures: CreatureType[] = useSelector((state: CreaturesState) => state.creatures.creatures);
 
-  const person = people.find(user => user.id === id);
+	const selectedCreature = creatures.find(creature => creature.id === id);
 
-  if (person === undefined) {
-    return null;
-  }
+	if (selectedCreature === undefined) {
+		return null;
+	}
 
-  const handlePeople = (newPerson: PersonType) => {
-    dispatch(
-      peopleActions.add(
-        people.map(user => {
-          if (user.id === person.id) {
-            return newPerson;
-          }
+	const handleCreatures = (newCreature: CreatureType) => {
+		dispatch(updateCreature({ id: selectedCreature.id, creature: newCreature }));
+	};
 
-          return user;
-        })
-      )
-    );
-  };
-
-  return (
-    <ModalForm
-      person={person}
-      handlePeople={handlePeople}
-      handleClose={setIsEditing}
-      title={`Edit: ${person.name}`}
-    />
-  );
+	return (
+		<ModalForm
+			creature={selectedCreature}
+			handleCreatures={handleCreatures}
+			handleClose={setIsEditing}
+			title={`Edit: ${selectedCreature.name}`}
+		/>
+	);
 };

@@ -1,7 +1,8 @@
 import React from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { actions as peopleActions } from '../../features/people';
-import { PersonType } from '../../types/PersonType';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteCreature } from '../../redux/slices/creaturesSlice';
+import { CreaturesState } from '../../types/CreatureState';
+import { CreatureType } from '../../types/CreatureType';
 
 type Props = {
 	id: number;
@@ -9,20 +10,18 @@ type Props = {
 };
 
 export const DeleteModal: React.FC<Props> = ({ id, handleIsDeleting }) => {
-	const dispatch = useAppDispatch();
-	const people: PersonType[] = useAppSelector(state => state.people);
-	const user = people.find(person => person.id === id);
+	const dispatch = useDispatch();
+	const creatures: CreatureType[] = useSelector((state: CreaturesState) => state.creatures.creatures);
+	const creature = creatures.find(creature => creature.id === id);
 
-	if (user === undefined) {
+	if (creature === undefined) {
 		return null;
 	}
 
-	const { name, gender } = user;
+	const { name, gender } = creature;
 
-	const handleDelete = (personId: number) => {
-		dispatch(
-			peopleActions.add(people.filter(person => person.id !== personId))
-		);
+	const handleDelete = (creatureId: number) => {
+		dispatch(deleteCreature(creatureId));
 	};
 
 	return (
