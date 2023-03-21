@@ -18,4 +18,4 @@ Implemented using:
 Data fetched from [Link](https://swapi.dev/)\
 You can contact me via [Linkedin](https://www.linkedin.com/in/maksym-sobko-253a8824a/)
 
-<img src="https://render.fineartamerica.com/images/rendered/default/greeting-card/images/artworkimages/medium/3/may-the-force-be-with-you-classic-version-dafydd-jones-transparent.png?&targetx=-47&targety=51&imagewidth=795&imageheight=394&modelwidth=700&modelheight=500&backgroundcolor=000000&orientation=0"/>
+<a href="https://www.linkedin.com/in/maksym-sobko-253a8824a/" target="_blank"><img src="https://i.pinimg.com/originals/95/02/ba/9502ba3a7c694ca41c637fa9dacbc952.gif"/></a>
