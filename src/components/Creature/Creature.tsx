@@ -21,6 +21,17 @@ export const Creature: React.FC<Props> = ({
 
 	const [isEdited, setIsEdited] = useState(false);
 
+	const handleEdit = () => {
+		setId(id);
+		handleIsEditing(true);
+		setIsEdited(true);
+	}
+
+	const handleDelete = () => {
+		setId(id);
+		handleIsDeleting(true);
+	}
+
 	return (
 		<div className={classNames('creature', { 'is-italic': isEdited })}>
 			<span className="creature__id">{id}</span>
@@ -33,14 +44,11 @@ export const Creature: React.FC<Props> = ({
 				<Link to={`/Creatures/${id}`} className="button is-link is-outlined mr-3">
 					Read more
 				</Link>
+
 				<button
 					type="submit"
 					className="button is-info is-outlined mr-3"
-					onClick={() => {
-						setId(id);
-						handleIsEditing(true);
-						setIsEdited(true);
-					}}
+					onClick={handleEdit}
 				>
 					Edit
 				</button>
@@ -48,10 +56,7 @@ export const Creature: React.FC<Props> = ({
 				<button
 					type="submit"
 					className="button is-danger is-outlined"
-					onClick={() => {
-						setId(id);
-						handleIsDeleting(true);
-					}}
+					onClick={handleDelete}
 				>
 					Delete
 				</button>
