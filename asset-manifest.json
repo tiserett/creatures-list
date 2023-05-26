@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/creatures-list/static/css/main.fc60e398.css",
-    "main.js": "/creatures-list/static/js/main.44572234.js",
+    "main.css": "/creatures-list/static/css/main.6ef38d75.css",
+    "main.js": "/creatures-list/static/js/main.c06c44b7.js",
     "index.html": "/creatures-list/index.html",
-    "main.fc60e398.css.map": "/creatures-list/static/css/main.fc60e398.css.map",
-    "main.44572234.js.map": "/creatures-list/static/js/main.44572234.js.map"
+    "main.6ef38d75.css.map": "/creatures-list/static/css/main.6ef38d75.css.map",
+    "main.c06c44b7.js.map": "/creatures-list/static/js/main.c06c44b7.js.map"
   },
   "entrypoints": [
-    "static/css/main.fc60e398.css",
-    "static/js/main.44572234.js"
+    "static/css/main.6ef38d75.css",
+    "static/js/main.c06c44b7.js"
   ]
 }
