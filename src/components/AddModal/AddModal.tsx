@@ -1,8 +1,11 @@
 import React from 'react';
+
+import * as creaturesActions from '../../redux/slices/creaturesSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { addCreature } from '../../redux/slices/creaturesSlice';
-import { Creature } from '../../types/Creature';
+
 import { ModalForm } from '../ModalForm';
+
+import { Creature } from '../../types/Creature';
 
 type Props = {
 	setIsAdding: (isAdding: boolean) => void;
@@ -23,7 +26,7 @@ export const AddModal: React.FC<Props> = ({ setIsAdding }) => {
 	};
 
 	const handleCreatures = (newCreature: Creature) => {
-		dispatch(addCreature(newCreature));
+		dispatch(creaturesActions.add(newCreature));
 	};
 
 	return (

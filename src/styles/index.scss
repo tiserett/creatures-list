@@ -1,19 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 .App {
-	font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 18px;
   font-weight: bold;
 }
 
 .fullHeight {
-	height: calc(100vh - 52px);
+  height: calc(100vh - 52px);
 }
 
 .field {
-	height: 90px;
+  height: 90px;
 }
 
 .field:not(:last-child) {
-	margin-bottom: 0;
+  margin-bottom: 0;
+}
+
+.error {
+  height: 100vh;
+  display: grid;
+	place-items: center;
 }

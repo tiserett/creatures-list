@@ -1,12 +1,19 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import { getRandomNumber } from '../../utils/getRandomNumber';
+
 import { Creature } from '../../types/Creature';
 
-interface CreaturesState {
+export interface CreaturesState {
   creatures: Creature[];
+  loading: boolean;
+  error: string;
 }
 
 const initialState: CreaturesState = {
   creatures: [],
+  loading: false,
+  error: ''
 };
 
 export const creaturesSlice = createSlice({
@@ -14,42 +21,61 @@ export const creaturesSlice = createSlice({
   initialState,
   reducers: {
     addCreatures: (state, action: PayloadAction<Creature[]>) => {
-      for (const creature of action.payload) {
-        state.creatures.push(creature);
-      }
+      state.creatures = [...action.payload];
     },
-    clearCreatures: state => {
+    clear: state => {
       state.creatures = [];
     },
-    addCreature: (state, action: PayloadAction<Creature>) => {
+    add: (state, action: PayloadAction<Creature>) => {
       state.creatures.push(action.payload);
     },
-    deleteCreature: (state, action: PayloadAction<number>) => {
-      state.creatures = [...state.creatures].filter(
+    remove: (state, action: PayloadAction<number>) => {
+      state.creatures = state.creatures.filter(
         creature => creature.id !== action.payload
       );
     },
-    updateCreature: (
+    update: (
       state,
       action: PayloadAction<{ id: number; creature: Creature }>
     ) => {
-      state.creatures = [...state.creatures].map(creature => {
-        if (creature.id === action.payload.id) {
-          return action.payload.creature;
-        }
-
-        return creature;
-      });
+      state.creatures = state.creatures.map(creature =>
+        creature.id === action.payload.id ? action.payload.creature : creature
+      );
     },
+  },
+  extraReducers: builder => {
+    builder.addCase(init.pending, state => {
+      state.loading = true;
+    });
+
+    builder.addCase(init.fulfilled, (state, action) => {
+      state.creatures = action.payload;
+      state.loading = false;
+    });
+
+    builder.addCase(init.rejected, (state) => {
+      state.error = 'Oops... An error occured. Try to reload the page'
+      state.loading = false;
+    });
   },
 });
 
-export const {
-  addCreatures,
-  clearCreatures,
-  addCreature,
-  deleteCreature,
-  updateCreature,
-} = creaturesSlice.actions;
+export const { addCreatures, clear, add, remove, update } =
+  creaturesSlice.actions;
 
 export default creaturesSlice.reducer;
+
+export const init = createAsyncThunk('creatures/fetch', async () => {
+  const data = await fetch('https://swapi.dev/api/people');
+  const dataFromServer = await data.json();
+
+  if (getRandomNumber(1, 10) === 1) {
+    throw 123;
+  }
+
+  const formattedData = dataFromServer.results.map(
+    (creature: Creature, index: number) => ({ ...creature, id: index + 1 })
+  );
+
+  return formattedData;
+});

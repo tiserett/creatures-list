@@ -1,6 +1,8 @@
 import React from 'react';
+
+import * as creaturesActions from '../../redux/slices/creaturesSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { deleteCreature } from '../../redux/slices/creaturesSlice';
+
 import { Creature } from '../../types/Creature';
 
 type Props = {
@@ -20,7 +22,7 @@ export const DeleteModal: React.FC<Props> = ({ id, handleIsDeleting }) => {
 	const { name, gender } = creature;
 
 	const handleDelete = (creatureId: number) => {
-		dispatch(deleteCreature(creatureId));
+		dispatch(creaturesActions.remove(creatureId));
 	};
 
 	return (
