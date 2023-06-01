@@ -1,6 +1,7 @@
-import classNames from 'classnames';
 import React, { FormEvent, useState } from 'react';
 import { Creature } from '../../types/Creature';
+import { getRandomNumber } from '../../utils/getRandomNumber';
+import { FormField } from '../FormField';
 
 type Props = {
 	creature?: Creature;
@@ -15,7 +16,7 @@ export const ModalForm: React.FC<Props> = ({
 	handleClose,
 	title,
 }) => {
-	if (creature === undefined) {
+	if (!creature) {
 		return null;
 	}
 
@@ -23,7 +24,7 @@ export const ModalForm: React.FC<Props> = ({
 
 	const { name, height, mass, gender } = selectedCreature;
 
-	const planetId = Math.floor(Math.random() * (10 - 1) + 1);
+	const planetId = getRandomNumber(1, 10);
 
 	const tempCreature: Creature = {
 		id: creature.id,
@@ -41,7 +42,7 @@ export const ModalForm: React.FC<Props> = ({
 			return;
 		}
 
-		setSelectedCreature(prev => ({ ...prev, [e.target.name]: value }));
+		setSelectedCreature(prev => ({ ...prev, [e.target.name]: typeof value === 'string' ? value : +value }));
 	};
 
 	const handleSumbit = (
@@ -69,64 +70,11 @@ export const ModalForm: React.FC<Props> = ({
 				</header>
 				<form action="" onSubmit={event => handleSumbit(event, tempCreature)}>
 					<section className="modal-card-body">
-						<div className="field">
-							<label className="label">
-								Name
-								<div className="control">
-									<input
-										className={classNames('input', { 'is-success': name }, { 'is-danger': !name })}
-										type="text"
-										placeholder="Name"
-										name="name"
-										value={name}
-										onChange={handleChange}
-										required
-									/>
-								</div>
-							</label>
+						<FormField value={name} placeholder='Name' type='text' handleChange={handleChange}/>
 
-							{!name && <p className="help is-danger">Please provide name</p>}
-						</div>
+						<FormField value={height} placeholder='Height' type='number' handleChange={handleChange} />
 
-						<div className="field">
-							<label className="label">
-								Height
-								<div className="control">
-									<input
-										className={classNames('input', { 'is-success': height }, { 'is-danger': !height })}
-										type="text"
-										placeholder="Height"
-										name="height"
-										value={height}
-										onChange={handleChange}
-										required
-									/>
-								</div>
-							</label>
-							{!height && (
-								<p className="help is-danger">Please provide height</p>
-							)}
-						</div>
-
-						<div className="field">
-							<label className="label">
-								Mass
-								<div className="control">
-									<input
-										className={classNames('input', { 'is-success': mass }, { 'is-danger': !mass })}
-										type="text"
-										placeholder="Mass"
-										name="mass"
-										value={mass}
-										onChange={handleChange}
-										required
-									/>
-								</div>
-							</label>
-							{!mass && (
-								<p className="help is-danger">Please provide mass</p>
-							)}
-						</div>
+						<FormField value={mass} placeholder='Mass' type='number' handleChange={handleChange} />
 					</section>
 
 					<footer className="modal-card-foot">
