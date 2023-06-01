@@ -3,17 +3,13 @@ import React, { useEffect, useMemo, useState } from 'react';
 import * as creaturesActions from '../../redux/slices/creaturesSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
-import { AddModal } from '../../components/AddModal';
-import { DeleteModal } from '../../components/DeleteModal';
-import { EditModal } from '../../components/EditModal';
-import { Creature } from '../../components/Creature';
-
 import { ThreeDots } from 'react-loader-spinner'
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import '../../styles/creature.scss';
 import '../../styles/transition.scss';
 import '../../styles/index.scss'
+import { AddModal, Creature, DeleteModal, EditModal } from '../../components';
 
 export const Creatures: React.FC = () => {
 	const dispatch = useAppDispatch();

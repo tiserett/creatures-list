@@ -18,7 +18,7 @@ export const EditModal: React.FC<Props> = ({ setIsEditing, id }) => {
 
 	const selectedCreature = creatures.find(creature => creature.id === id);
 
-	if (selectedCreature === undefined) {
+	if (!selectedCreature) {
 		return null;
 	}
 

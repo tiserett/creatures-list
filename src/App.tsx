@@ -1,10 +1,7 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { Header } from './components/Header';
-import { NotFoundPage } from './components/NotFoundPage';
-import { Home } from './pages/Home';
-import { Creatures } from './pages/Creatures';
-import { CreaturePage } from './pages/CreaturePage';
+import { CreaturePage, Creatures, Home } from './pages';
+import { Header, NotFoundPage } from './components';
 
 export const App = () => {
 	return (

@@ -13,7 +13,7 @@ export interface CreaturesState {
 const initialState: CreaturesState = {
   creatures: [],
   loading: false,
-  error: ''
+  error: '',
 };
 
 export const creaturesSlice = createSlice({
@@ -53,8 +53,8 @@ export const creaturesSlice = createSlice({
       state.loading = false;
     });
 
-    builder.addCase(init.rejected, (state) => {
-      state.error = 'Oops... An error occured. Try to reload the page'
+    builder.addCase(init.rejected, state => {
+      state.error = 'Oops... An error occured. Try to reload the page';
       state.loading = false;
     });
   },

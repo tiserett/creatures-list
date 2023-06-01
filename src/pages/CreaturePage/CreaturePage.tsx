@@ -7,7 +7,7 @@ import { addCommas } from '../../utils/addComas';
 import '../../styles/CreaturePage.scss';
 import { useAppSelector } from '../../hooks/redux';
 import { ThreeDots } from 'react-loader-spinner'
-import { NotFoundPage } from '../../components/NotFoundPage';
+import { NotFoundPage } from '../../components';
 
 export const CreaturePage: React.FC = () => {
 	const [planet, setPlanet] = useState<Planet>({
